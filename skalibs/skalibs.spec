@@ -43,7 +43,6 @@ This subpackage contains html document for %{name}.
 %prep
 %autosetup -n %{name}-%{version}
 sed -i "s|@@VERSION@@|%{version}|" -i %{SOURCE1}
-cat %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --libdir=%{_libdir} --dynlibdir=%{_libdir} \
@@ -80,6 +79,12 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %files doc
 %defattr(-,root,root,-)
 %{_docdir}/%{name}/*
+
+%post
+ldconfig
+
+%postun
+ldconfig
 
 %changelog
 * Fri Mar 29 2024 Wang Qi <ericwq057@qq.com> - v0.1
