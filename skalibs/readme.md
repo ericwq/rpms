@@ -13,6 +13,8 @@ rpmlint -v ~/rpmbuild/SPECS/skalibs.spec
 ```
 run `rpmbuild` to build rpm.
 ```sh
+spectool -g -R ~/rpmbuild/SPECS/skalibs.spec
+rpmbuild -bs ~/rpmbuild/SPECS/skalibs.spec
 rpmbuild -bb ~/rpmbuild/SPECS/skalibs.spec
 ```
 check package information, contents, dependencies for rpm

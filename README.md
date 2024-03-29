@@ -27,3 +27,5 @@ docker run -u packager --rm -ti -h rpm-builder --env TZ=Asia/Shanghai --name rpm
 ```
 
 Next, follow the instructions for individual project.
+- [skalibs](skalibs/readme.md) ready for test.
+- [utmps](utmps/readme.md) not ready.

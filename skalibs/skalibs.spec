@@ -86,6 +86,8 @@ ldconfig
 %postun
 ldconfig
 
+%license COPYING
+
 %changelog
 * Fri Mar 29 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged

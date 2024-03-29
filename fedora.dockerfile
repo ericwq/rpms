@@ -6,11 +6,12 @@ LABEL maintainer="ericwq057@qq.com"
 # RUN curl -s https://mirror.go-repo.io/fedora/go-repo.repo | tee /etc/yum.repos.d/go-repo.repo
 
 RUN dnf install -y gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools \
-	sudo dnf-plugins-core tree git wget which ripgrep fzf pkgconfig
+	sudo dnf-plugins-core tree git wget which ripgrep fzf pkgconfig \
+	mock mock-scm createrepo_c
 
 # add user/group
-RUN groupadd build
-RUN adduser -g build packager
+# RUN groupadd mock
+RUN adduser -g mock packager
 
 # set password for root and sudo
 ARG ROOT_PWD=password
@@ -20,6 +21,7 @@ RUN echo "packager:${USER_PWD}" | chpasswd
 # add packager to sudo list
 RUN echo 'packager ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/packager
 
+# https://developer.fedoraproject.org/deployment/rpm/about.html
 
 USER packager:build
 WORKDIR /home/packager
