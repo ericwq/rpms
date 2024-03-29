@@ -64,10 +64,10 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %files
 %defattr(-,root,root,0755)
 %{_libdir}/libskarnet.so.*
-%{_libdir}/libskarnet.so
 
 %files devel
 %defattr(-,root,root,0755)
+%{_libdir}/libskarnet.so
 %{_includedir}/skalibs/*
 %{_libdir}/skalibs/sysdeps
 %{_libdir}/pkgconfig/skalibs.pc
