@@ -1,60 +1,57 @@
 #
-# spec file for package skalibs
+# spec file for package execline
 #
 # Contributor: Wang Qi <ericwq057@qq.com>
 #
 
 %define debug_package %{nil}
 
-Name:	  skalibs
-Version:  2.14.1.1
+Name:	  execline
+Version:  2.9.4.0
 Release:  1%{?dist}
-Summary:  Set of general-purpose C programming libraries for skarnet.org software.
+Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts.
 License:  ISC
 URL:	  https://skarnet.org/software/%{name}
 Group:	  System Environment/Libraries
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
-Source1:  skalibs.pc
-BuildRequires: gcc make pkgconfig
+BuildRequires: skalibs >= 2.14
+
 %description
-skalibs is a package centralizing the free software / open source C development files used for building all software at skarnet.org: it contains essentially general-purpose libraries. You will need to install skalibs if you plan to build skarnet.org software.
+execline is a (non-interactive) scripting language, like sh - but its syntax is quite different from a traditional shell syntax. The execlineb program is meant to be used as an interpreter for a text file; the other commands are essentially useful inside an execlineb script.
 
 %package  devel
-Summary:  Set of general-purpose C programming libraries for skarnet.org software. (development files)
+Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts. (development files)
 Group:	  Development/Libraries
 Requires: %{name} = %{version}-%{release}
-Requires: pkgconfig
 %description devel
 This subpackage holds the development headers and sysdeps files for the library.
 
 %package  static
-Summary:  Set of general-purpose C programming libraries for skarnet.org software. (static library)
+Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts. (static library)
 Group:	  Development/Libraries
 %description static
 This subpackage contains the static version of the library used for development.
 
 %package  doc
-Summary:   Set of general-purpose C programming libraries for skarnet.org software. (html document)
+Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts. (document)
 Requires: %{name} = %{version}-%{release}
 %description doc
-This subpackage contains html document for %{name}.
+This subpackage contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
-sed -i "s|@@VERSION@@|%{version}|" -i %{SOURCE1}
 
 %build
-./configure  --libdir=%{_libdir}/skalibs --dynlibdir=%{_libdir} \
+./configure --enable-shared --enable-static --disable-allstatic \
+	--libdir=%{_libdir} --with-dynlib=%{_libdir} --enable-multicall \
 	--sysdepdir=%{_libdir}/skalibs/sysdeps
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+make DESTDIR=%{buildroot} install
+ln -s ../../bin/execlineb "%{buildroot}/usr/bin/execlineb"
 
-# copy pkgconfig
-install -D -m 0644 "%{SOURCE1}" "%{buildroot}%{_libdir}/pkgconfig/skalibs.pc"
 
 # move doc
 mkdir -p %{buildroot}%{_docdir}
