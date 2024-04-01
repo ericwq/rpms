@@ -12,65 +12,67 @@ Release:  1%{?dist}
 Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts.
 License:  ISC
 URL:	  https://skarnet.org/software/%{name}
-Group:	  System Environment/Libraries
+Group:	  System/Libraries
+
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
-BuildRequires: skalibs >= 2.14
+Provides: %{name} = %{version}
+Obsoletes:%{name} < %{version}
+BuildRequires: pkgconfig(skalibs)
 
 %description
-execline is a (non-interactive) scripting language, like sh - but its syntax is quite different from a traditional shell syntax. The execlineb program is meant to be used as an interpreter for a text file; the other commands are essentially useful inside an execlineb script.
+execline is a (non-interactive) scripting language, like sh - but its
+syntax is quite different from a traditional shell syntax. The 
+execlineb program is meant to be used as an interpreter for a text 
+file; the other commands are essentially useful inside an execlineb script.
 
 %package  devel
-Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts. (development files)
-Group:	  Development/Libraries
+Summary:  development environment for %{name}
+Group:	  Development/C
 Requires: %{name} = %{version}-%{release}
+Provides: %{name}-devel = %{version}
+Obsoletes:%{name}-devel < %{version}
 %description devel
-This subpackage holds the development headers and sysdeps files for the library.
+This package holds the development headers and sysdeps files for the library.
 
-%package  static
-Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts. (static library)
-Group:	  Development/Libraries
-%description static
-This subpackage contains the static version of the library used for development.
+%package  devel-static
+Summary:  Static %{name} library
+Group:	  Development/C
+Provides: %{name}-devel-static = %{version}
+Obsoletes:%{name}-devel-static < %{version}
+%description devel-static
+This package contains the static version of the library used for development.
 
 %package  doc
-Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts. (document)
-Requires: %{name} = %{version}-%{release}
+Summary:  %{name} document
 %description doc
-This subpackage contains document for %{name}.
+This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
 
 %build
-./configure --enable-shared --enable-static --disable-allstatic \
-	--libdir=%{_libdir} --with-dynlib=%{_libdir} --enable-multicall \
-	--sysdepdir=%{_libdir}/skalibs/sysdeps
+./configure --enable-shared --enable-static --disable-allstatic --enable-multicall \
+	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
+	--with-sysdeps=%{_libdir}/skalibs/sysdeps
 make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
-ln -s ../../bin/execlineb "%{buildroot}/usr/bin/execlineb"
 
-
-# move doc
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
-%defattr(-,root,root,0755)
-%{_libdir}/libskarnet.so.*
+%{_bindir}/
+%{_libdir}/*.so.*
 
 %files devel
-%defattr(-,root,root,0755)
-%{_libdir}/libskarnet.so
-%{_includedir}/skalibs/*
-%{_libdir}/skalibs/sysdeps
-%{_libdir}/pkgconfig/skalibs.pc
+%{_libdir}/*.so
+%{_includedir}/%{name}/*
 
-%files static
-%defattr(-,root,root,0755)
-%{_libdir}/libskarnet.a
+%files devel-static
+%{_libdir}/*.a
 
 %files doc
 %defattr(-,root,root,-)

@@ -19,9 +19,9 @@ rpmbuild -bb ~/rpmbuild/SPECS/execline.spec     #build RPMS
 ```
 check package information, contents, dependencies for rpm
 ```sh
-rpm -qi ~/rpmbuild/RPMS/x86_64/execline-2.14.1.1-1.fc39.x86_64.rpm
-rpm -ql ~/rpmbuild/RPMS/x86_64/execline-devel-2.14.1.1-1.fc39.x86_64.rpm
-rpm -qpR ~/rpmbuild/RPMS/x86_64/execline-static-2.14.1.1-1.fc39.x86_64.rpm
+rpm -qi ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.4.0-1.fc39.x86_64.rpm
+rpm -ql ~/rpmbuild/RPMS/x86_64/execline-devel-static-2.9.4.0-1.fc39.x86_64.rpm
+rpm -qpR ~/rpmbuild/RPMS/x86_64/execline-2.9.4.0-1.fc39.x86_64.rpm
 ```
 
 use the following command to find out which pa provides a perticular file.
