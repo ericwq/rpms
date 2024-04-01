@@ -13,16 +13,16 @@ rpmlint -v ~/rpmbuild/SPECS/skalibs.spec
 ```
 run `rpmbuild` to build rpm.
 ```sh
-spectool -g -R ~/rpmbuild/SPECS/skalibs.spec
-rpmbuild -bs ~/rpmbuild/SPECS/skalibs.spec
-rpmbuild -bb ~/rpmbuild/SPECS/skalibs.spec
+spectool -g -R ~/rpmbuild/SPECS/skalibs.spec    #download the source
+rpmbuild -bs ~/rpmbuild/SPECS/skalibs.spec      #build the sourece RPMS
+rpmbuild -bb ~/rpmbuild/SPECS/skalibs.spec      #build the RPMS
 ```
 check package information, contents, dependencies for rpm
 ```sh
 rpm -qi ~/rpmbuild/RPMS/x86_64/skalibs-2.14.1.1-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/skalibs-devel-2.14.1.1-1.fc39.x86_64.rpm
-rpm -qpR ~/rpmbuild/RPMS/x86_64/skalibs-static-2.14.1.1-1.fc39.x86_64.rpm
-sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/skalibs-2.14.1.1-1.fc39.x86_64.rpm
+rpm -qpR ~/rpmbuild/RPMS/x86_64/skalibs-devel-static-2.14.1.1-1.fc39.x86_64.rpm
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/skalibs-doc-2.14.1.1-1.fc39.x86_64.rpm
 ```
 
 use the following command to find out which pa provides a perticular file.
