@@ -22,8 +22,15 @@ check package information, contents, dependencies for rpm, install rpm.
 rpm -qi ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.4.0-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/execline-devel-static-2.9.4.0-1.fc39.x86_64.rpm
 rpm -qpR ~/rpmbuild/RPMS/x86_64/execline-2.9.4.0-1.fc39.x86_64.rpm
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/execline-doc-2.9.4.0-1.fc39.x86_64.rpm
 ```
 
+List the direct dependencies of the named package.
+```sh
+dnf repoquery --requires <package name>
+dnf repoquery --deplist <package name>
+dnf repoquery --installed --whatrequires <package name>
+```
 use the following command to find out which package provides a perticular file.
 ```sh
 rpm -qf {/path/to/file_name}

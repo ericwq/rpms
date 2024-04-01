@@ -28,7 +28,7 @@ contains essentially general-purpose libraries. You will need to
 install skalibs if you plan to build skarnet.org software.
 
 %package  devel
-Summary:  development environment for %{name}
+Summary:  Development environment for %{name}
 Group:	  Development/C
 Requires: pkgconfig
 Requires: %{name} = %{version}-%{release}

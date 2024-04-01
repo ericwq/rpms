@@ -20,6 +20,8 @@ Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 BuildRequires: pkgconfig(skalibs)
 
+%define _localbindir "/usr/local/bin"
+
 %description
 execline is a (non-interactive) scripting language, like sh - but its
 syntax is quite different from a traditional shell syntax. The
@@ -27,7 +29,7 @@ execlineb program is meant to be used as an interpreter for a text
 file; the other commands are essentially useful inside an execlineb script.
 
 %package  devel
-Summary:  development environment for %{name}
+Summary:  Development environment for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}-%{release}
 Provides: %{name}-devel = %{version}
@@ -44,7 +46,7 @@ Obsoletes:%{name}-devel-static < %{version}
 This package contains the static version of the library used for development.
 
 %package  doc
-Summary:  %{name} document
+Summary:  Document for %{name}
 %description doc
 This package contains document for %{name}.
 
@@ -53,18 +55,19 @@ This package contains document for %{name}.
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic --enable-multicall \
-	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
-	--with-sysdeps=%{_libdir}/skalibs/sysdeps
+	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_localbindir} \
+	--with-sysdeps=%{_libdir}/skalibs/sysdeps --enable-pedantic-posix
 make %{?_smp_mflags}
 
 %install
+mkdir -p %{buildroot}%{_localbindir}
 make DESTDIR=%{buildroot} install
 
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
-%{_bindir}/
+%{_localbindir}
 %{_libdir}/*.so.*
 
 %files devel
