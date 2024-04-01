@@ -3,6 +3,7 @@
 With the help of fedora linux container, you can reproduce the rpm building process as you follow the instruction. The container is created according to [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#introduction).
 
  The container contains:
+- the container is based on fedora:39.
 - packages `gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools`.
 - packages `sudo dnf-plugins-core tree git wget which ripgrep fzf pkgconfig`.
 - packages `mock mock-scm createrepo_c`, refer to [Building package using Mock](https://developer.fedoraproject.org/deployment/rpm/about.html).
