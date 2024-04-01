@@ -33,6 +33,6 @@ Next, follow the instructions for individual project.
 - [s6](s6/s6.md)
 - [utmps](utmps/readme.md)
 
-# reference
+## reference
 - [s6 packaging for debian](https://github.com/multiplexd/s6-packaging)
 - [How to handle dynamic and static libraries in Linux](https://opensource.com/article/20/6/linux-libraries)
