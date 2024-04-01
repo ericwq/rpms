@@ -20,8 +20,6 @@ Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 BuildRequires: pkgconfig(skalibs)
 
-%define _localbindir "/usr/local/bin"
-
 %description
 execline is a (non-interactive) scripting language, like sh - but its
 syntax is quite different from a traditional shell syntax. The
@@ -55,19 +53,18 @@ This package contains document for %{name}.
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic --enable-multicall \
-	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_localbindir} \
+	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_sbindir} \
 	--with-sysdeps=%{_libdir}/skalibs/sysdeps --enable-pedantic-posix
 make %{?_smp_mflags}
 
 %install
-mkdir -p %{buildroot}%{_localbindir}
 make DESTDIR=%{buildroot} install
 
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
-%{_localbindir}
+%{_sbindir}
 %{_libdir}/*.so.*
 
 %files devel
