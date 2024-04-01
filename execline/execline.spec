@@ -22,8 +22,8 @@ BuildRequires: pkgconfig(skalibs)
 
 %description
 execline is a (non-interactive) scripting language, like sh - but its
-syntax is quite different from a traditional shell syntax. The 
-execlineb program is meant to be used as an interpreter for a text 
+syntax is quite different from a traditional shell syntax. The
+execlineb program is meant to be used as an interpreter for a text
 file; the other commands are essentially useful inside an execlineb script.
 
 %package  devel
@@ -87,5 +87,5 @@ ldconfig
 %license COPYING
 
 %changelog
-* Fri Mar 29 2024 Wang Qi <ericwq057@qq.com> - v0.1
+* Mon Apr 1 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged
