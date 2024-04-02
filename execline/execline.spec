@@ -5,6 +5,7 @@
 #
 
 %define debug_package %{nil}
+%define _build_id_links none
 
 Name:	  execline
 Version:  2.9.4.0
