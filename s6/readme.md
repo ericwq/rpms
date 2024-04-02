@@ -9,15 +9,16 @@
 ```sh
 rm -rf rpmbuild
 rpmdev-setuptree
-cp ~/develop/rpms/skalibs/s6.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/skalibs/{s6-svscanboot,s6.initd,s6.pre-install,s6.pre-upgrade,s6.trigger} ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/s6/s6.spec ~/rpmbuild/SPECS/
+cp ~/develop/rpms/s6/{s6-svscanboot,s6.initd,s6.pre-install,s6.pre-upgrade,s6.trigger} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
 ```sh
-spectool -g -R ~/rpmbuild/SPECS/s6.spec
-rpmbuild -bs ~/rpmbuild/SPECS/s6.spec
-rpmbuild -bb ~/rpmbuild/SPECS/s6.spec
+spectool -g -R ~/rpmbuild/SPECS/s6.spec   #download the source
+rpmbuild -bc ~/rpmbuild/SPECS/s6.spec     #just compile
+rpmbuild -bs ~/rpmbuild/SPECS/s6.spec     #build source RPMS
+rpmbuild -bb ~/rpmbuild/SPECS/s6.spec     #build RPMS
 ```
 check package information, contents, dependencies for rpm
 ```sh

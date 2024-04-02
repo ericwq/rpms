@@ -5,9 +5,10 @@
 #
 
 %define debug_package %{nil}
+%define _build_id_links none
 
 Name:	  s6
-Version:  2.12.0.2
+Version:  2.12.0.3
 Release:  1%{?dist}
 Summary:  skarnet.org's small & secure supervision software suite.
 License:  ISC
@@ -74,9 +75,10 @@ This package contains document for %{name}.
 %autosetup -n %{name}-%{version}
 
 %build
-./configure --enable-shared --enable-static --disable-allstatic --enable-multicall \
+./configure --enable-shared --enable-static --disable-allstatic \
 	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
-	--with-sysdeps=%{_libdir}/skalibs/sysdeps --enable-pedantic-posix
+	--libexecdir=%{_libexecdir} \
+	--with-sysdeps=%{_libdir}/skalibs/sysdeps
 make %{?_smp_mflags}
 
 %install
@@ -86,18 +88,19 @@ make DESTDIR=%{buildroot} install
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
-# rebuild the conflicted files (filesystem, bash package) in /usr/sbin
-mkdir -p %{buildroot}%{_sbindir}
-rm %{buildroot}%{_bindir}/{cd,umask,wait}
-cd %{buildroot}%{_sbindir}
-ln -s ../bin/execline cd
-ln -s ../bin/execline umask
-ln -s ../bin/execline wait
-
 %files
 %{_bindir}/*
-%{_sbindir}/*
+%exclude %{_bindir}/s6-applyuidgid
+%exclude %{_bindir}/s6-ipcserver
+%exclude %{_bindir}/s6-ipcserver-socketbinder
+%exclude %{_bindir}/s6-ipcserverd
 %{_libdir}/*.so.*
+
+%files ipcserver
+%{_bindir}/s6-applyuidgid
+%{_bindir}/s6-ipcserver
+%{_bindir}/s6-ipcserver-socketbinder
+%{_bindir}/s6-ipcserverd
 
 %files devel
 %{_libdir}/*.so
@@ -119,5 +122,5 @@ ldconfig
 %license COPYING
 
 %changelog
-* Mon Apr 1 2024 Wang Qi <ericwq057@qq.com> - v0.1
+* Thu Apr 4 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged
