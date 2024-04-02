@@ -53,18 +53,28 @@ This package contains document for %{name}.
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic --enable-multicall \
-	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_sbindir} \
+	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
 	--with-sysdeps=%{_libdir}/skalibs/sysdeps --enable-pedantic-posix
 make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
 
+# move html doc
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
+# rebuild the conflicted files (filesystem, bash package) in /usr/sbin
+mkdir -p %{buildroot}%{_sbindir}
+rm %{buildroot}%{_bindir}/{cd,umask,wait}
+cd %{buildroot}%{_sbindir}
+ln -s ../bin/execline cd
+ln -s ../bin/execline umask
+ln -s ../bin/execline wait
+
 %files
-%{_sbindir}
+%{_bindir}/*
+%{_sbindir}/*
 %{_libdir}/*.so.*
 
 %files devel
