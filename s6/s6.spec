@@ -115,6 +115,8 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %files doc
 %{_docdir}/%{name}/*
 
+%pre s6.pre-install
+
 %post
 ldconfig
 
