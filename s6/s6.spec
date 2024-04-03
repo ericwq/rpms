@@ -18,10 +18,10 @@ Group:	  System/Base
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  s6-svscanboot
-Source2:  s6.initd
-Source3:  s6.pre-install
-Source4:  s6.pre-upgrade
-Source5:  s6.trigger
+Source2:  s6.pre-install
+Source3:  s6.pre-upgrade
+Source4:  s6.trigger
+Source5:  s6.initd
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
@@ -84,6 +84,8 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 
+install -D -m 0755 %{SOURCE1} "%{buildroot}%{_libdir}/s6/s6-svscanboot"
+
 # move html doc
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
@@ -95,6 +97,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %exclude %{_bindir}/s6-ipcserver-socketbinder
 %exclude %{_bindir}/s6-ipcserverd
 %{_libdir}/*.so.*
+%{_libdir}/s6/s6-svscanboot
 
 %files ipcserver
 %{_bindir}/s6-applyuidgid
@@ -110,7 +113,6 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %{_libdir}/*.a
 
 %files doc
-%defattr(-,root,root,-)
 %{_docdir}/%{name}/*
 
 %post

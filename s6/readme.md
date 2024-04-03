@@ -22,9 +22,10 @@ rpmbuild -bb ~/rpmbuild/SPECS/s6.spec     #build RPMS
 ```
 check package information, contents, dependencies for rpm
 ```sh
-rpm -qi ~/rpmbuild/RPMS/x86_64/
-rpm -ql ~/rpmbuild/RPMS/x86_64/
-rpm -qpR ~/rpmbuild/RPMS/x86_64/
+rpm -qi ~/rpmbuild/RPMS/x86_64/s6-devel-2.12.0.3-1.fc39.x86_64.rpm
+rpm -ql ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
+rpm -qpR ~/rpmbuild/RPMS/x86_64/s6-ipcserver-2.12.0.3-1.fc39.x86_64.rpm
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-devel-static-2.12.0.3-1.fc39.x86_64.rpm
 sudo dnf remove -y s6
 ```
 List the direct dependencies of the named package.
