@@ -29,6 +29,10 @@ Requires: %{name}-ipcserver = %{version}-%{release}
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: execline-devel
 
+%global _pre_install $(cat %SOURCE2)
+%global _pre_upgrade $(cat %SOURCE3)
+%global _file_trigger $(cat %SOURCE4)
+
 %description
 s6 is a small suite of programs for UNIX, designed to allow process
 supervision (a.k.a service supervision), in the line of daemontools
@@ -115,13 +119,29 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %files doc
 %{_docdir}/%{name}/*
 
-%pre s6.pre-install
+%pre
+if [ "$1" = "1" ]; then
+%{_pre_install}
+echo "RPM is getting installed"
+elif [ "$1" == "2" ]; then
+%{_pre_upgrade}
+echo "RPM is getting upgraded"
+fi
+ldconfig
 
 %post
 ldconfig
 
 %postun
 ldconfig
+
+%filetriggerin — /run/service
+%{_file_trigger}
+echo "file trigger for /run/service"
+
+%filetriggerun — /run/service
+%{_file_trigger}
+echo "*****%{_file_trigger}"
 
 %license COPYING
 
