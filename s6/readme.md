@@ -45,3 +45,15 @@ for this project, we already have all the dependencies.
 ```sh
 sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 ```
+
+## reference
+
+- [How to run systemd in a container](https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container#enter_podman)
+- [Understanding Systemd Units and Unit Files](https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files)
+- [Packaging Guidelines: scriptlets: systemd](https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_systemd)
+- [File triggers](https://rpm-software-management.github.io/rpm/manual/file_triggers.html)
+- [How to execute a script at %pre while installing/upgrading an rpm](https://www.golinuxhub.com/2018/05/how-to-execute-script-at-pre-post-preun-postun-spec-file-rpm/)
+- [Support for File triggers](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/packaging_and_distributing_software/new-features-in-rhel-8_packaging-and-distributing-software#support-for-file-triggers_new-features-in-rhel-8)
+- [Layout of the sysdeps Directory Hierarchy](https://www.gnu.org/software/libc/manual/html_node/Hierarchy-Conventions.html)
+- [RPM Macros](https://docs.fedoraproject.org/en-US/packaging-guidelines/RPMMacros/)
+- [Install/Erase-time Scripts](https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-scripts.html#S4-RPM-INSIDE-POST-SCRIPT)
