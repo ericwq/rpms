@@ -5,9 +5,10 @@ LABEL maintainer="ericwq057@qq.com"
 # RUN rpm --import https://mirror.go-repo.io/fedora/RPM-GPG-KEY-GO-REPO
 # RUN curl -s https://mirror.go-repo.io/fedora/go-repo.repo | tee /etc/yum.repos.d/go-repo.repo
 
-RUN dnf install -y gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools \
+RUN dnf -y install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools \
 	sudo dnf-plugins-core tree git wget which ripgrep fzf pkgconfig \
-	mock mock-scm createrepo_c
+	mock mock-scm createrepo_c \
+	&& dnf clean all
 
 # add user/group
 # RUN groupadd mock
@@ -23,7 +24,4 @@ RUN echo 'packager ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/packager
 
 # https://developer.fedoraproject.org/deployment/rpm/about.html
 
-USER packager:build
-WORKDIR /home/packager
-
-CMD ["/bin/bash"]
+ENTRYPOINT ["/sbin/init"]

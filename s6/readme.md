@@ -57,3 +57,6 @@ sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 - [Layout of the sysdeps Directory Hierarchy](https://www.gnu.org/software/libc/manual/html_node/Hierarchy-Conventions.html)
 - [RPM Macros](https://docs.fedoraproject.org/en-US/packaging-guidelines/RPMMacros/)
 - [Install/Erase-time Scripts](https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-scripts.html#S4-RPM-INSIDE-POST-SCRIPT)
+- [s6](https://skarnet.org/software/s6/)
+- [RPM scriptlet recipes](https://docs.pagure.org/packaging-guidelines/Packaging%3AScriptlets.html)
+- [Maximum RPM](http://ftp.rpm.org/max-rpm/index.html)

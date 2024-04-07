@@ -8,6 +8,7 @@ With the help of fedora linux container, you can reproduce the rpm building proc
 - packages `sudo dnf-plugins-core tree git wget which ripgrep fzf pkgconfig`.
 - packages `mock mock-scm createrepo_c`, refer to [Building package using Mock](https://developer.fedoraproject.org/deployment/rpm/about.html).
 - `packager` user is created and added to sudo list.
+- PID 1 is `/sbin/init`.
 
 ## requirement
 To reproduce the buing process, you need `git` and `docker` on your local system.
@@ -22,12 +23,20 @@ docker build --no-cache --progress plain -t rpm-builder:0.2.0 -f fedora.dockerfi
 ```
 ## run the container
 Run the container as packager user. Note: here I mount the local directory:`/Users/qiwang/dev` to the container's directory `/home/packager/develop`. This container also setup the timezone to shanghai,PRC. You can change it to mount your local directory and timezone.
+
+start the container as daemon.
 ```sh
-docker run -u packager --rm -ti -h rpm-builder --env TZ=Asia/Shanghai --name rpm-builder --privileged \
-        --mount type=bind,source=/Users/qiwang/dev,target=/home/packager/develop \
-        rpm-builder:0.2.0
+docker run --env TZ=Asia/Shanghai --tty --privileged --volume /sys/fs/cgroup:/sys/fs/cgroup:rw \
+    --mount source=proj-vol,target=/home/packager/proj \
+    --mount type=bind,source=/Users/qiwang/dev,target=/home/packager/develop \
+    -h rpm-builder --name rpm-builder -d \
+    rpm-builder:0.2.0
 ```
 
+login the container as packager.
+```sh
+docker exec -u packager -it rpm-builder bash
+```
 Next, follow the instructions for individual project. Note, you must follow the following order (top -> down) to build indivial rpm packages, there are dependency rule.
 - [skalibs](skalibs/readme.md)👌
 - [execline](execline/readme.md)👌
