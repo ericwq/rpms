@@ -1,12 +1,11 @@
 [Unit]
-Description=S6 supervision tree
-# Documentation=man:sshd(8) man:sshd_config(5)
+Description=skarnet.org's small & secure supervision software suite
+Documentation=https://skarnet.org/software/s6
 After=network.target
 
 [Service]
 Type=notify
-# EnvironmentFile=-/etc/sysconfig/sshd
-ExecStart=-/lib/s6/s6-svscanboot /run/service
+ExecStart=-@@S6_SVSCANBOOT_PATH@@/s6/s6-svscanboot /run/service
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

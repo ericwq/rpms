@@ -10,7 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/s6/s6.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/s6/{s6-svscanboot,s6.initd,s6.pre-install,s6.pre-upgrade,s6.trigger} ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/s6/{s6-svscanboot,s6.service,s6.pre-install,s6.pre-upgrade,s6.trigger} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
@@ -20,13 +20,22 @@ rpmbuild -bc ~/rpmbuild/SPECS/s6.spec     #just compile
 rpmbuild -bs ~/rpmbuild/SPECS/s6.spec     #build source RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/s6.spec     #build RPMS
 ```
-check package information, contents, dependencies for rpm
+check package information, contents, dependencies for rpm.
 ```sh
 rpm -qi ~/rpmbuild/RPMS/x86_64/s6-devel-2.12.0.3-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
 rpm -qpR ~/rpmbuild/RPMS/x86_64/s6-ipcserver-2.12.0.3-1.fc39.x86_64.rpm
-sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-devel-static-2.12.0.3-1.fc39.x86_64.rpm
+```
+
+install and remove rpm
+```sh
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
 sudo dnf remove -y s6
+```
+
+list install/erase scriptlets from package(s)
+```sh
+rpm --scripts -qp ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
 ```
 List the direct dependencies of the named package.
 ```sh

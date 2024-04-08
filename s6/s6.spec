@@ -10,7 +10,7 @@
 Name:	  s6
 Version:  2.12.0.3
 Release:  1%{?dist}
-Summary:  skarnet.org's small & secure supervision software suite.
+Summary:  skarnet.org's small & secure supervision software suite
 License:  ISC
 URL:	  https://skarnet.org/software/%{name}
 Group:	  System/Base
@@ -21,13 +21,14 @@ Source1:  s6-svscanboot
 Source2:  s6.pre-install
 Source3:  s6.pre-upgrade
 Source4:  s6.trigger
-Source5:  s6.initd
+Source5:  s6.service
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
 Requires: %{name}-ipcserver = %{version}-%{release}
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: execline-devel
+BuildRequires: systemd-rpm-macros
 
 %global _pre_install $(cat %SOURCE2)
 %global _pre_upgrade $(cat %SOURCE3)
@@ -77,6 +78,8 @@ This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
+# change s6-svscanboot path in s6.service
+sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}|" %{SOURCE5}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -89,6 +92,8 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 
 install -D -m 0755 %{SOURCE1} "%{buildroot}%{_libdir}/s6/s6-svscanboot"
+install -D -m 0755 %{SOURCE5} "%{buildroot}%{_unitdir}/s6.service"
+cat %{SOURCE5}
 
 # move html doc
 mkdir -p %{buildroot}%{_docdir}
@@ -102,6 +107,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %exclude %{_bindir}/s6-ipcserverd
 %{_libdir}/*.so.*
 %{_libdir}/s6/s6-svscanboot
+%config %{_unitdir}/s6.service
 
 %files ipcserver
 %{_bindir}/s6-applyuidgid
@@ -129,19 +135,24 @@ echo "RPM is getting upgraded"
 fi
 ldconfig
 
+%preun
+%systemd_preun %{name}.service
+
 %post
 ldconfig
+%systemd_post %{name}.service
 
 %postun
 ldconfig
+%systemd_postun_with_restart %{name}.service
 
 %filetriggerin — /run/service
+echo "*****%{_file_trigger}"
 %{_file_trigger}
-echo "file trigger for /run/service"
 
 %filetriggerun — /run/service
-%{_file_trigger}
 echo "*****%{_file_trigger}"
+%{_file_trigger}
 
 %license COPYING
 
