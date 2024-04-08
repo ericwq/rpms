@@ -74,3 +74,4 @@ sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 - [s6](https://skarnet.org/software/s6/)
 - [RPM scriptlet recipes](https://docs.pagure.org/packaging-guidelines/Packaging%3AScriptlets.html)
 - [Maximum RPM](http://ftp.rpm.org/max-rpm/index.html)
+- [systemd 日志维护指南（附实例）](https://linux.cn/article-15526-1.html)
