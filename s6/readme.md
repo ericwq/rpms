@@ -10,7 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/s6/s6.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/s6/{s6-svscanboot,s6.service,s6.pre-install,s6.pre-upgrade,s6.trigger} ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/s6/{s6-svscanboot,s6.service} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
@@ -37,6 +37,10 @@ list install/erase scriptlets from package(s)
 ```sh
 rpm --scripts -qp ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
 ```
+list filetrigger scriptlets from package(s)
+```sh
+rpm --filetriggers -qp ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
+```
 List the direct dependencies of the named package.
 ```sh
 dnf repoquery --requires <package name>
@@ -62,6 +66,7 @@ sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 - [Packaging Guidelines: scriptlets: systemd](https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/#_systemd)
 - [File triggers](https://rpm-software-management.github.io/rpm/manual/file_triggers.html)
 - [How to execute a script at %pre while installing/upgrading an rpm](https://www.golinuxhub.com/2018/05/how-to-execute-script-at-pre-post-preun-postun-spec-file-rpm/)
+- [RPM + writing script in the spec file](https://stackoverflow.com/questions/5625382/rpm-writing-script-in-the-spec-file)
 - [Support for File triggers](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/packaging_and_distributing_software/new-features-in-rhel-8_packaging-and-distributing-software#support-for-file-triggers_new-features-in-rhel-8)
 - [Layout of the sysdeps Directory Hierarchy](https://www.gnu.org/software/libc/manual/html_node/Hierarchy-Conventions.html)
 - [RPM Macros](https://docs.fedoraproject.org/en-US/packaging-guidelines/RPMMacros/)

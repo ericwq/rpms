@@ -18,21 +18,16 @@ Group:	  System/Base
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  s6-svscanboot
-Source2:  s6.pre-install
-Source3:  s6.pre-upgrade
-Source4:  s6.trigger
-Source5:  s6.service
+Source2:  s6.service
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
 Requires: %{name}-ipcserver = %{version}-%{release}
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: execline-devel
 BuildRequires: systemd-rpm-macros
-
-%global _pre_install $(cat %SOURCE2)
-%global _pre_upgrade $(cat %SOURCE3)
-%global _file_trigger $(cat %SOURCE4)
 
 %description
 s6 is a small suite of programs for UNIX, designed to allow process
@@ -79,7 +74,7 @@ This package contains document for %{name}.
 %prep
 %autosetup -n %{name}-%{version}
 # change s6-svscanboot path in s6.service
-sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}|" %{SOURCE5}
+sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}|" %{SOURCE2}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -92,8 +87,8 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 
 install -D -m 0755 %{SOURCE1} "%{buildroot}%{_libdir}/s6/s6-svscanboot"
-install -D -m 0755 %{SOURCE5} "%{buildroot}%{_unitdir}/s6.service"
-cat %{SOURCE5}
+install -D -m 0755 %{SOURCE2} "%{buildroot}%{_unitdir}/s6.service"
+# cat %%{SOURCE2}
 
 # move html doc
 mkdir -p %{buildroot}%{_docdir}
@@ -126,35 +121,42 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %{_docdir}/%{name}/*
 
 %pre
-if [ "$1" = "1" ]; then
-%{_pre_install}
-echo "RPM is getting installed"
-elif [ "$1" == "2" ]; then
-%{_pre_upgrade}
-echo "RPM is getting upgraded"
+if [ $1 -eq 1 ]; then
+	# package install
+	addgroup -S catchlog 2>/dev/null
+	adduser -S -D -h / -H -s /bin/false -G catchlog -g catchlog catchlog 2>/dev/null
+	echo "mark : pre install(done)"
+elif [ $1 -gt 1 ]; then
+	# package upgrade
+	addgroup -S catchlog 2>/dev/null
+	adduser -S -D -h / -H -s /bin/false -G catchlog -g catchlog catchlog 2>/dev/null
+	echo "mark : pre upgrade"
 fi
-ldconfig
+exit 0
+
+%post
+/sbin/ldconfig
+%systemd_post %{name}.service
+echo "mark : post(done)"
 
 %preun
 %systemd_preun %{name}.service
-
-%post
-ldconfig
-%systemd_post %{name}.service
+echo "mark : pre uninstall(done)"
 
 %postun
-ldconfig
+/sbin/ldconfig
 %systemd_postun_with_restart %{name}.service
+echo "mark : post uninstall(done)"
 
-%filetriggerin — /run/service
-echo "*****%{_file_trigger}"
-%{_file_trigger}
+%transfiletriggerin -- /run/service
+echo "mark 4"
+/bin/execlineb -P <<EOF
+s6-svscanctl -an /run/service
+EOF
+echo "mark 5"
 
-%filetriggerun — /run/service
-echo "*****%{_file_trigger}"
-%{_file_trigger}
-
-%license COPYING
+%transfiletriggerpostun -p /bin/execlineb -P -- /run/service
+s6-svscanctl -an /run/service
 
 %changelog
 * Thu Apr 4 2024 Wang Qi <ericwq057@qq.com> - v0.1
