@@ -6,6 +6,7 @@
 
 %define debug_package %{nil}
 %define _build_id_links none
+%define _s6_service_path /run/service
 
 Name:	  s6
 Version:  2.12.0.3
@@ -121,6 +122,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 if [ $1 -eq 1 ]; then
 	# package install
 	echo "mark : pre install(done)"
+	mkdir -p %{_s6_service_path}/.s6-svscan %{_s6_service_path}/s6-svscan-log
 elif [ $1 -gt 1 ]; then
 	# package upgrade
 	echo "mark : pre upgrade"

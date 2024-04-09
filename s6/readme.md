@@ -59,6 +59,23 @@ for this project, we already have all the dependencies.
 sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 ```
 
+## unit manage
+start a service
+```sh
+systemctl list-units                        #list running units
+systemctl list-units --all                  #list all units
+systemctl list-units --all --state=inactive #list all inactive units
+systemctl list-units --type=service         #list all, running service units
+systemctl list-units --failed               #list failed units
+sudo systemctl start s6.service             #start a service
+sudo systemctl restart s6.service           #restart a service
+sudo systemctl stop s6.service              #stop a service
+```
+stop a service
+```sh
+sudo systemctl start s6.service
+sudo systemctl restart s6.service
+```
 ## reference
 
 - [How to run systemd in a container](https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container#enter_podman)
@@ -76,3 +93,4 @@ sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 - [Maximum RPM](http://ftp.rpm.org/max-rpm/index.html)
 - [Tutorial: Logging with journald](https://sematext.com/blog/journald-logging-tutorial/)
 - [man journald.conf](https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html)
+- [man systemd-system.conf](https://www.freedesktop.org/software/systemd/man/latest/systemd-system.conf.html#)
