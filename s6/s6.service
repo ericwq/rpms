@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=notify
-ExecStart=-@@S6_SVSCANBOOT_PATH@@/s6/s6-svscanboot /run/service
+ExecStart=-@@S6_SVSCAN_PATH@@/s6-svscan -- /run/service
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

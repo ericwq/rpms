@@ -17,8 +17,7 @@ Group:	  System/Base
 
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
-Source1:  s6-svscanboot
-Source2:  s6.service
+Source1:  s6.service
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
@@ -73,8 +72,8 @@ This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
-# change s6-svscanboot path in s6.service
-sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}|" %{SOURCE2}
+# change s6-svscan path in s6.service
+sed -i "s|@@S6_SVSCAN_PATH@@|%{_bindir}|" %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -86,9 +85,8 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 
-install -D -m 0755 %{SOURCE1} "%{buildroot}%{_libdir}/s6/s6-svscanboot"
-install -D -m 0755 %{SOURCE2} "%{buildroot}%{_unitdir}/s6.service"
-# cat %%{SOURCE2}
+install -D -m 0755 %{SOURCE1} "%{buildroot}%{_unitdir}/s6.service"
+cat %{SOURCE1}
 
 # move html doc
 mkdir -p %{buildroot}%{_docdir}
@@ -101,7 +99,6 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %exclude %{_bindir}/s6-ipcserver-socketbinder
 %exclude %{_bindir}/s6-ipcserverd
 %{_libdir}/*.so.*
-%{_libdir}/s6/s6-svscanboot
 %config %{_unitdir}/s6.service
 
 %files ipcserver
@@ -123,13 +120,9 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %pre
 if [ $1 -eq 1 ]; then
 	# package install
-	addgroup -S catchlog 2>/dev/null
-	adduser -S -D -h / -H -s /bin/false -G catchlog -g catchlog catchlog 2>/dev/null
 	echo "mark : pre install(done)"
 elif [ $1 -gt 1 ]; then
 	# package upgrade
-	addgroup -S catchlog 2>/dev/null
-	adduser -S -D -h / -H -s /bin/false -G catchlog -g catchlog catchlog 2>/dev/null
 	echo "mark : pre upgrade"
 fi
 exit 0
@@ -137,7 +130,7 @@ exit 0
 %post
 /sbin/ldconfig
 %systemd_post %{name}.service
-echo "mark : post(done)"
+echo "mark : post install(done)"
 
 %preun
 %systemd_preun %{name}.service

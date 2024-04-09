@@ -10,7 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/s6/s6.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/s6/{s6-svscanboot,s6.service} ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/s6/s6.service ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
@@ -74,4 +74,5 @@ sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 - [s6](https://skarnet.org/software/s6/)
 - [RPM scriptlet recipes](https://docs.pagure.org/packaging-guidelines/Packaging%3AScriptlets.html)
 - [Maximum RPM](http://ftp.rpm.org/max-rpm/index.html)
-- [systemd 日志维护指南（附实例）](https://linux.cn/article-15526-1.html)
+- [Tutorial: Logging with journald](https://sematext.com/blog/journald-logging-tutorial/)
+- [man journald.conf](https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html)
