@@ -6,7 +6,7 @@
 
 %define debug_package %{nil}
 %define _build_id_links none
-%define _s6_service_dir %{_sharedstatedir}/s6/service
+%define _s6_scan_dir %{_sharedstatedir}/s6/service
 
 Name:	  s6
 Version:  2.12.0.3
@@ -35,10 +35,10 @@ s6 is a small suite of programs for UNIX, designed to allow process
 supervision (a.k.a service supervision), in the line of daemontools
 and runit, as well as various operations on processes and daemons.
 
-Note: the service directory is %{_s6_service_dir}.
+Note: the scan directory is %{_s6_scan_dir}.
 
 s6 managed services need to create their own service directories,
-and symlink them to the service directory.
+and symlink them to the scan directory.
 
 %package  ipcserver
 Summary:  Local service management and access control
@@ -76,7 +76,7 @@ This package contains document for %{name}.
 %autosetup -n %{name}-%{version}
 # change s6-svscan path in s6.service
 sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}\/s6|" %{SOURCE1}
-sed -i "s|@@S6_SERVICE_DIR@@|%{_s6_service_dir}|" %{SOURCE1}
+sed -i "s|@@S6_SERVICE_DIR@@|%{_s6_scan_dir}|" %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -143,20 +143,20 @@ echo "mark : pre uninstall(done)"
 
 %postun
 if [ $1 -eq 0 ]; then
-	rm -rf %{_s6_service_dir}/
+	rm -rf %{_s6_scan_dir}/
 fi
 /sbin/ldconfig
 %systemd_postun_with_restart %{name}.service
 echo "mark : post uninstall(done)"
 
-%transfiletriggerin -- %{_s6_service_dir}
+%transfiletriggerin -- %{_s6_scan_dir}
 echo "mark 4"
 /bin/execlineb -P <<EOF
-s6-svscanctl -an %{_s6_service_dir}
+s6-svscanctl -an %{_s6_scan_dir}
 EOF
 echo "mark 5"
 
-%transfiletriggerpostun -p /bin/execlineb -P -- %{_s6_service_dir}
+%transfiletriggerpostun -p /bin/execlineb -P -- %{_s6_scan_dir}
 s6-svscanctl -an /run/service
 
 %changelog
