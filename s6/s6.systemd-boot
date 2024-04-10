@@ -1,0 +1,4 @@
+#!/bin/execlineb -S1
+
+foreground { redirfd -w 2 /dev/null mkdir -p ${1}/.s6-svscan }
+s6-svscan -- ${1}

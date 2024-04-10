@@ -6,7 +6,7 @@
 
 %define debug_package %{nil}
 %define _build_id_links none
-%define _s6_service_path /run/service
+%define _s6_service_dir /run/service
 
 Name:	  s6
 Version:  2.12.0.3
@@ -19,6 +19,7 @@ Group:	  System/Base
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  s6.service
+Source2:  s6.systemd-boot
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
@@ -74,7 +75,8 @@ This package contains document for %{name}.
 %prep
 %autosetup -n %{name}-%{version}
 # change s6-svscan path in s6.service
-sed -i "s|@@S6_SVSCAN_PATH@@|%{_bindir}|" %{SOURCE1}
+sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}\/s6|" %{SOURCE1}
+sed -i "s|@@S6_SERVICE_DIR@@|%{_s6_service_dir}|" %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -86,7 +88,8 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 
-install -D -m 0755 %{SOURCE1} "%{buildroot}%{_unitdir}/s6.service"
+install -D -m 0644 %{SOURCE1} "%{buildroot}%{_unitdir}/s6.service"
+install -D -m 0755 %{SOURCE2} "%{buildroot}%{_libdir}/s6/s6.systemd-boot"
 cat %{SOURCE1}
 
 # move html doc
@@ -99,6 +102,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %exclude %{_bindir}/s6-ipcserver
 %exclude %{_bindir}/s6-ipcserver-socketbinder
 %exclude %{_bindir}/s6-ipcserverd
+%{_libdir}/s6/*
 %{_libdir}/*.so.*
 %config %{_unitdir}/s6.service
 
@@ -122,7 +126,6 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 if [ $1 -eq 1 ]; then
 	# package install
 	echo "mark : pre install(done)"
-	mkdir -p %{_s6_service_path}/
 elif [ $1 -gt 1 ]; then
 	# package upgrade
 	echo "mark : pre upgrade"
@@ -140,20 +143,20 @@ echo "mark : pre uninstall(done)"
 
 %postun
 if [ $1 -eq 0 ]; then
-	rm -rf %{_s6_service_path}/
+	rm -rf %{_s6_service_dir}/
 fi
 /sbin/ldconfig
 %systemd_postun_with_restart %{name}.service
 echo "mark : post uninstall(done)"
 
-%transfiletriggerin -- /run/service
+%transfiletriggerin -- %{_s6_service_dir}
 echo "mark 4"
 /bin/execlineb -P <<EOF
-s6-svscanctl -an /run/service
+s6-svscanctl -an %{_s6_service_dir}
 EOF
 echo "mark 5"
 
-%transfiletriggerpostun -p /bin/execlineb -P -- /run/service
+%transfiletriggerpostun -p /bin/execlineb -P -- %{_s6_service_dir}
 s6-svscanctl -an /run/service
 
 %changelog
