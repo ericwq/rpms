@@ -122,7 +122,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 if [ $1 -eq 1 ]; then
 	# package install
 	echo "mark : pre install(done)"
-	mkdir -p %{_s6_service_path}/.s6-svscan %{_s6_service_path}/s6-svscan-log
+	mkdir -p %{_s6_service_path}/
 elif [ $1 -gt 1 ]; then
 	# package upgrade
 	echo "mark : pre upgrade"
@@ -139,6 +139,9 @@ echo "mark : post install(done)"
 echo "mark : pre uninstall(done)"
 
 %postun
+if [ $1 -eq 0 ]; then
+	rm -rf %{_s6_service_path}/
+fi
 /sbin/ldconfig
 %systemd_postun_with_restart %{name}.service
 echo "mark : post uninstall(done)"

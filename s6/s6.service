@@ -4,12 +4,12 @@ Documentation=https://skarnet.org/software/s6
 After=network.target
 
 [Service]
-Type=notify
+Type=simple
 ExecStart=-@@S6_SVSCAN_PATH@@/s6-svscan -- /run/service
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
-RestartSec=42s
+RestartSec=2s
 
 [Install]
 WantedBy=multi-user.target

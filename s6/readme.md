@@ -60,21 +60,21 @@ sudo dnf builddep -y ~/rpmbuild/SPECS/s6.spec
 ```
 
 ## unit manage
-start a service
+list services
 ```sh
 systemctl list-units                        #list running units
 systemctl list-units --all                  #list all units
 systemctl list-units --all --state=inactive #list all inactive units
 systemctl list-units --type=service         #list all, running service units
 systemctl list-units --failed               #list failed units
-sudo systemctl start s6.service             #start a service
-sudo systemctl restart s6.service           #restart a service
-sudo systemctl stop s6.service              #stop a service
 ```
-stop a service
+start/stop service
 ```sh
-sudo systemctl start s6.service
-sudo systemctl restart s6.service
+systemctl status s6.service                 #check service status
+sudo systemctl enable s6.service            #enable service
+sudo systemctl start s6.service             #start service
+sudo systemctl restart s6.service           #restart service
+sudo systemctl stop s6.service              #stop service
 ```
 ## reference
 
