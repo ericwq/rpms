@@ -74,9 +74,9 @@ This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
-# change s6-svscan path in s6.service
+# change s6.systemd-boot path and scan dir in s6.service
 sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}\/s6|" %{SOURCE1}
-sed -i "s|@@S6_SERVICE_DIR@@|%{_s6_scan_dir}|" %{SOURCE1}
+sed -i "s|@@S6_SCAN_DIR@@|%{_s6_scan_dir}|" %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
