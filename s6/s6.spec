@@ -6,7 +6,7 @@
 
 %define debug_package %{nil}
 %define _build_id_links none
-%define _s6_service_dir /run/service
+%define _s6_service_dir %{_sharedstatedir}/s6/service
 
 Name:	  s6
 Version:  2.12.0.3
@@ -34,11 +34,11 @@ BuildRequires: systemd-rpm-macros
 s6 is a small suite of programs for UNIX, designed to allow process
 supervision (a.k.a service supervision), in the line of daemontools
 and runit, as well as various operations on processes and daemons.
-It is meant to be a toolbox for low-level process and service
-administration, providing different sets of independent tools that
-can be used within or without the framework, and that can be
-assembled together to achieve powerful functionality with a very
-small amount of code.
+
+Note: the service directory is %{_s6_service_dir}.
+
+s6 managed services need to create their own service directories,
+and symlink them to the service directory.
 
 %package  ipcserver
 Summary:  Local service management and access control

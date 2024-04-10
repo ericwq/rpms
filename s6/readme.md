@@ -76,6 +76,13 @@ sudo systemctl start s6.service             #start service
 sudo systemctl restart s6.service           #restart service
 sudo systemctl stop s6.service              #stop service
 ```
+
+check the service log
+```sh
+sudo journalctl -u s6.service               #only show s6.service log
+sudo journalctl -f -u s6.service            #keep reading the latest s6.service log
+journalctl --dmesg                          #only show kernel message
+```
 ## reference
 
 - [How to run systemd in a container](https://developers.redhat.com/blog/2019/04/24/how-to-run-systemd-in-a-container#enter_podman)
