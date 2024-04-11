@@ -22,6 +22,8 @@ Source4:  0001-add-stub-utmp.h.patch
 Requires: s6-ipcserver >= 2.12
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: gcc make pkgconfig
+Provides: %{name} = %{version}
+Obsoletes:%{name} < %{version}
 
 %description
 utmps is a secure implementation of user accounting, using
@@ -44,7 +46,7 @@ Summary:  A secure utmp/wtmp implementation (development files)
 Group:	  Development/C
 Requires: %{name}-libs = %{version}-%{release}
 Requires: pkgconfig
-Requires: pkgconfig(skalibs)
+Requires: pkgconfig(skalibs-2.14)
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 
@@ -80,8 +82,7 @@ sed -i "s|@@VERSION@@|%{version}|" %{SOURCE1}
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
-make install DESTDIR=%{buildroot}
+make DESTDIR=%{buildroot} install
 
 # copy pkgconfig
 install -D -m 0644 "%{SOURCE1}" "%{buildroot}%{_libdir}/pkgconfig/utmps.pc"
@@ -117,5 +118,5 @@ ldconfig
 %license COPYING
 
 %changelog
-* Fri Mar 29 2024 Wang Qi <ericwq057@qq.com> - v0.1
+* Fri Apr 12 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged
