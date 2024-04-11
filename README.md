@@ -40,7 +40,7 @@ docker exec -u packager -it rpm-builder bash
 Next, follow the instructions for individual project. Note, you must follow the following order (top -> down) to build indivial rpm packages, there are dependency rule.
 - [skalibs](skalibs/readme.md)👌
 - [execline](execline/readme.md)👌
-- [s6](s6/readme.md)
+- [s6](s6/readme.md)👌
 - [utmps](utmps/readme.md)
 
 ## reference

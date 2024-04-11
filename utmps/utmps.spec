@@ -1,64 +1,82 @@
 #
-# spec file for package skalibs
+# spec file for package utmps
 #
 # Contributor: Wang Qi <ericwq057@qq.com>
 #
 
 %define debug_package %{nil}
+%define _build_id_links none
 
 Name:	  utmps
 Version:  0.1.2.2
 Release:  1%{?dist}
-Summary:  Set of general-purpose C programming libraries for skarnet.org software.
+Summary:  A secure utmp/wtmp implementation
 License:  ISC
 URL:	  https://skarnet.org/software/%{name}
 Group:	  System Environment/Libraries
+
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
-Source1:  utmp-prepare.initd
-Source2:  utmpd.initd
-Source2:  wtmpd.initd
-Source2:  btmpd.initd
-Source2:  utmp-init.initd
-Source2:  setup-utmp
-Source2:  utmps.pc
-Source2:  wtmpd.logrotate
-Source2:  btmpd.logrotate
-Source2:  0001-add-stub-utmp.h.patch
+Source1:  utmps.pc
+Source4:  0001-add-stub-utmp.h.patch
+Requires: s6-ipcserver >= 2.12
 BuildRequires: skalibs-devel >= 2.14
-
 BuildRequires: gcc make pkgconfig
+
 %description
-skalibs is a package centralizing the free software / open source C development files used for building all software at skarnet.org: it contains essentially general-purpose libraries. You will need to install skalibs if you plan to build skarnet.org software.
+utmps is a secure implementation of user accounting, using
+a daemon as the only authority to manage the utmp and wtmp
+data; programs running utmp functions are just clients to
+this daemon.
+
+%package  libs
+Summary:  A secure utmp/wtmp implementation (libraries)
+Group:	  Development/C
+Requires: skalibs >= 2.14
+Provides: %{name} = %{version}
+Obsoletes:%{name} < %{version}
+
+%description libs
+This package holds the runtime library.
 
 %package  devel
-Summary:  Set of general-purpose C programming libraries for skarnet.org software. (development files)
-Group:	  Development/Libraries
-Requires: %{name} = %{version}-%{release}
+Summary:  A secure utmp/wtmp implementation (development files)
+Group:	  Development/C
+Requires: %{name}-libs = %{version}-%{release}
 Requires: pkgconfig
+Requires: pkgconfig(skalibs)
+Provides: %{name}-devel = %{version}
+Obsoletes:%{name}-devel < %{version}
+
 %description devel
-This subpackage holds the development headers and sysdeps files for the library.
+This package holds the development headers for the library.
 
 %package  static
-Summary:  Set of general-purpose C programming libraries for skarnet.org software. (static library)
-Group:	  Development/Libraries
+Summary:  A secure utmp/wtmp implementation (static library)
+Group:	  Development/C
+Requires: skalibs-static
+Provides: %{name}-static = %{version}
+Obsoletes:%{name}-static < %{version}
+
 %description static
-This subpackage contains the static version of the library used for development.
+This ackage contains the static library for %{name}.
 
 %package  doc
-Summary:   Set of general-purpose C programming libraries for skarnet.org software. (html document)
+Summary:  A secure utmp/wtmp implementation (documentation)
 Requires: %{name} = %{version}-%{release}
+
 %description doc
-This subpackage contains html document for %{name}.
+This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
-sed -i "s|@@VERSION@@|%{version}|" -i %{SOURCE1}
+sed -i "s|@@VERSION@@|%{version}|" %{SOURCE1}
 
 %build
-./configure --enable-shared --enable-static --libdir=%{_libdir} --dynlibdir=%{_libdir} \
-	--with-pkg-config-libdir=%{_libdir}/pkgconfig \
-	--sysdepdir=%{_libdir}/skalibs/sysdeps
+./configure --enable-shared --enable-static --disable-allstatic \
+	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
+	--libexecdir=%{_libexecdir} \
+	--with-sysdeps=%{_libdir}/skalibs/sysdeps
 make %{?_smp_mflags}
 
 %install
@@ -66,29 +84,28 @@ rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
 # copy pkgconfig
-install -D -m 0644 "%{SOURCE1}" "%{buildroot}%{_libdir}/pkgconfig/skalibs.pc"
+install -D -m 0644 "%{SOURCE1}" "%{buildroot}%{_libdir}/pkgconfig/utmps.pc"
 
 # move doc
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
-%defattr(-,root,root,0755)
-%{_libdir}/libskarnet.so.*
+%{_bindir}/*
+#%%{_sbindir}/*
+
+%files libs
+%{_libdir}/*.so.*
 
 %files devel
-%defattr(-,root,root,0755)
-%{_libdir}/libskarnet.so
-%{_includedir}/skalibs/*
-%{_libdir}/skalibs/sysdeps
-%{_libdir}/pkgconfig/skalibs.pc
+%{_libdir}/*.so
+%{_includedir}/%{name}/*
+%{_libdir}/pkgconfig/utmps.pc
 
 %files static
-%defattr(-,root,root,0755)
-%{_libdir}/libskarnet.a
+%{_libdir}/*.a
 
 %files doc
-%defattr(-,root,root,-)
 %{_docdir}/%{name}/*
 
 %post

@@ -1,5 +1,5 @@
 #
-# spec file for package execline
+# spec file for package s6
 #
 # Contributor: Wang Qi <ericwq057@qq.com>
 #

@@ -1,5 +1,7 @@
-Name: skalibs
-Description: The skarnet.org general-purpose C library.
-URL: https://skarnet.org/software/skalibs/
+Name: utmps
+Description: A secure implementation of the utmp mechanism.
+URL: https://skarnet.org/software/utmps/
 Version: @@VERSION@@
-Libs: -lskarnet
+Requires.private: skalibs
+Libs: -lutmps
+Cflags: -I/usr/include/utmps
