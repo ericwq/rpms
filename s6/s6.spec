@@ -20,6 +20,7 @@ Group:	  System/Base
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  s6.service
 Source2:  s6.systemd-boot
+Source3:  s6.preset
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
@@ -90,6 +91,7 @@ make DESTDIR=%{buildroot} install
 
 install -D -m 0644 %{SOURCE1} "%{buildroot}%{_unitdir}/s6.service"
 install -D -m 0755 %{SOURCE2} "%{buildroot}%{_libdir}/s6/s6.systemd-boot"
+install -D -m 0644 %{SOURCE3} "%{buildroot}%{_presetdir}/50-s6.preset"
 cat %{SOURCE1}
 
 # move html doc
@@ -104,6 +106,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %exclude %{_bindir}/s6-ipcserverd
 %{_libdir}/s6/*
 %{_libdir}/*.so.*
+%{_presetdir}/50-s6.preset
 %config %{_unitdir}/s6.service
 
 %files ipcserver

@@ -10,7 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/s6/s6.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/s6/{s6.service,s6.systemd-boot} ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/s6/{s6.service,s6.systemd-boot,s6.preset} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
@@ -101,4 +101,6 @@ journalctl --dmesg                          #only show kernel message
 - [Tutorial: Logging with journald](https://sematext.com/blog/journald-logging-tutorial/)
 - [man journald.conf](https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html)
 - [man systemd-system.conf](https://www.freedesktop.org/software/systemd/man/latest/systemd-system.conf.html#)
+- [man systemd.preset](https://www.freedesktop.org/software/systemd/man/latest/systemd.preset.html#)
 - [Getting started with execline scripting](https://danyspin97.org/blog/getting-started-with-execline-scripting/)
+- [Enable a systemd service at rpm installation](https://stackoverflow.com/questions/53435822/enable-a-systemd-service-at-rpm-installation)
