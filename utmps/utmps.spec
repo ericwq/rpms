@@ -45,8 +45,7 @@ This package holds the runtime library.
 Summary:  A secure utmp/wtmp implementation (development files)
 Group:	  Development/C
 Requires: %{name}-libs = %{version}-%{release}
-Requires: pkgconfig
-Requires: pkgconfig(skalibs-2.14)
+Requires: pkgconfig(skalibs-2.14.1.1)
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 
@@ -61,7 +60,7 @@ Provides: %{name}-static = %{version}
 Obsoletes:%{name}-static < %{version}
 
 %description static
-This ackage contains the static library for %{name}.
+This package contains the static library for %{name}.
 
 %package  doc
 Summary:  A secure utmp/wtmp implementation (documentation)
