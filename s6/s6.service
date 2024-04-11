@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=-@@S6_SVSCANBOOT_PATH@@/s6.systemd-boot @@S6_SCAN_DIR@@
+ExecStart=-@@S6_SVSCANBOOT_PATH@@/s6.svscan-boot @@S6_SCAN_DIR@@
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

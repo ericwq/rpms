@@ -10,7 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/s6/s6.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/s6/{s6.service,s6.systemd-boot,s6.preset} ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/s6/{s6.service,s6.svscan-boot,s6.preset} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
@@ -76,12 +76,17 @@ sudo systemctl start s6.service             #start service
 sudo systemctl restart s6.service           #restart service
 sudo systemctl stop s6.service              #stop service
 ```
-
 check the service log
 ```sh
 sudo journalctl -u s6.service               #only show s6.service log
 sudo journalctl -f -u s6.service            #keep reading the latest s6.service log
 journalctl --dmesg                          #only show kernel message
+```
+send message to systemd journald
+```sh
+echo 'info message   ' | systemd-cat -p info
+echo 'warning message' | systemd-cat -p warning
+echo 'emerg message  ' | systemd-cat -p emerg
 ```
 ## reference
 
