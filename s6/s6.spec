@@ -24,7 +24,6 @@ Source3:  s6.preset
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
-Requires: %{name}-ipcserver = %{version}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires: skalibs-devel >= 2.14.1.0
@@ -40,16 +39,6 @@ Note: the scan directory is %{_s6_scan_dir}.
 
 s6 managed services need to create their own service directories,
 and symlink them to the scan directory.
-
-%package  ipcserver
-Summary:  Local service management and access control
-Group:	  System/Base
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
-%description ipcserver
-s6-ipcserver is an UCSPI server tool for Unix domain sockets, i.e.
-a super-server. It accepts connections from clients, and forks a
-program to handle each connection.
 
 %package  devel
 Summary:  Development environment for %{name}
@@ -99,21 +88,11 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
 %{_bindir}/*
-%exclude %{_bindir}/s6-applyuidgid
-%exclude %{_bindir}/s6-ipcserver
-%exclude %{_bindir}/s6-ipcserver-socketbinder
-%exclude %{_bindir}/s6-ipcserverd
 %{_libdir}/s6/*
 %{_libdir}/*.so.*
 %{_presetdir}/50-s6.preset
 %config %{_unitdir}/s6.service
 %license COPYING
-
-%files ipcserver
-%{_bindir}/s6-applyuidgid
-%{_bindir}/s6-ipcserver
-%{_bindir}/s6-ipcserver-socketbinder
-%{_bindir}/s6-ipcserverd
 
 %files devel
 %{_libdir}/*.so
