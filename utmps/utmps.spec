@@ -18,7 +18,7 @@ Group:	  System Environment/Libraries
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  utmps.pc
-Source4:  0001-add-stub-utmp.h.patch
+Patch0:	  0001-add-stub-utmp.h.patch
 Requires: s6-ipcserver >= 2.12
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: gcc make pkgconfig
@@ -64,13 +64,16 @@ This package contains the static library for %{name}.
 
 %package  doc
 Summary:  A secure utmp/wtmp implementation (documentation)
-Requires: %{name} = %{version}-%{release}
 
 %description doc
 This package contains document for %{name}.
 
 %prep
-%autosetup -n %{name}-%{version}
+# -N disables automatic patch
+%autosetup -N
+# use -p1 to remove the b/
+# use -P 0 to apply patch 0
+%patch -p 1 -P 0
 sed -i "s|@@VERSION@@|%{version}|" %{SOURCE1}
 
 %build

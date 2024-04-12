@@ -8,13 +8,14 @@
 ```sh
 rpmdev-setuptree
 cp ~/develop/rpms/utmps/utmps.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/utmps/utmps.pc ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/utmps/{utmps.pc,0001-add-stub-utmp.h.patch} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/utmps.spec
 ```
 run `rpmbuild` to build rpm.
 ```sh
 spectool -g -R ~/rpmbuild/SPECS/utmps.spec
-rpmbuild -bs ~/rpmbuild/SPECS/utmps.spec
+rpmbuild -bp ~/rpmbuild/SPECS/utmps.spec
+rpmbuild -bc ~/rpmbuild/SPECS/utmps.spec
 rpmbuild -bb ~/rpmbuild/SPECS/utmps.spec
 ```
 check package information, contents, dependencies for rpm
@@ -39,3 +40,7 @@ for this project, we already have all the dependencies.
 ```sh
 sudo dnf builddep -y ~/rpmbuild/SPECS/utmps/utmps.spec
 ```
+## reference
+
+- [Automating patch application in specs %autosetup description](https://rpm-software-management.github.io/rpm/manual/autosetup.html)
+- [spec file format](https://rpm-software-management.github.io/rpm/manual/spec.html)
