@@ -31,8 +31,8 @@ install skalibs if you plan to build skarnet.org software.
 %package  devel
 Summary:  Development environment for %{name}
 Group:	  Development/C
-Requires: pkgconfig
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}
+Provides: pkgconfig(%{name}) = %{version}-%{release}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 

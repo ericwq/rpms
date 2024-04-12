@@ -24,10 +24,10 @@ Source3:  s6.preset
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 Requires: execline
-Requires: %{name}-ipcserver = %{version}-%{release}
+Requires: %{name}-ipcserver = %{version}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires: skalibs-devel >= 2.14
+BuildRequires: skalibs-devel >= 2.14.1.0
 BuildRequires: execline-devel
 BuildRequires: systemd-rpm-macros
 
@@ -54,7 +54,7 @@ program to handle each connection.
 %package  devel
 Summary:  Development environment for %{name}
 Group:	  Development/C
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel

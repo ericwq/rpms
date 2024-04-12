@@ -30,7 +30,7 @@ file; the other commands are essentially useful inside an execlineb script.
 %package  devel
 Summary:  Development environment for %{name}
 Group:	  Development/C
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel

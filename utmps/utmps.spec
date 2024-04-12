@@ -44,22 +44,23 @@ This package holds the runtime library.
 %package  devel
 Summary:  A secure utmp/wtmp implementation (development files)
 Group:	  Development/C
-Requires: %{name}-libs = %{version}-%{release}
-Requires: pkgconfig(skalibs-2.14.1.1)
+Requires: %{name}-libs = %{version}
+Requires: pkgconfig(skalibs) >= 2.13
+Provides: pkgconfig(%{name}) = %{version}-%{release}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 
 %description devel
 This package holds the development headers for the library.
 
-%package  static
+%package  devel-static
 Summary:  A secure utmp/wtmp implementation (static library)
 Group:	  Development/C
-Requires: skalibs-static
+Requires: skalibs-devel-static
 Provides: %{name}-static = %{version}
 Obsoletes:%{name}-static < %{version}
 
-%description static
+%description devel-static
 This package contains the static library for %{name}.
 
 %package  doc
@@ -105,7 +106,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %{_includedir}/%{name}/*
 %{_libdir}/pkgconfig/utmps.pc
 
-%files static
+%files devel-static
 %{_libdir}/*.a
 
 %files doc

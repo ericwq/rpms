@@ -18,11 +18,12 @@ rpmbuild -bp ~/rpmbuild/SPECS/utmps.spec
 rpmbuild -bc ~/rpmbuild/SPECS/utmps.spec
 rpmbuild -bb ~/rpmbuild/SPECS/utmps.spec
 ```
-check package information, contents, dependencies for rpm
+check package information, contents, dependencies, provides for rpm
 ```sh
 rpm -qi ~/rpmbuild/RPMS/x86_64/utmps-libs-0.1.2.2-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/utmps-0.1.2.2-1.fc39.x86_64.rpm
 rpm -qpR ~/rpmbuild/RPMS/x86_64/utmps-devel-0.1.2.2-1.fc39.x86_64.rpm
+rpm -qp --provides ~/rpmbuild/RPMS/x86_64/utmps-devel-0.1.2.2-1.fc39.x86_64.rpm
 ```
 install and remove rpm
 ```sh
