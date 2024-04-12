@@ -75,6 +75,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
 %{_libdir}/*.so.*
+%license COPYING
 
 %files devel
 %{_libdir}/*.so

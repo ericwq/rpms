@@ -107,6 +107,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %{_libdir}/*.so.*
 %{_presetdir}/50-s6.preset
 %config %{_unitdir}/s6.service
+%license COPYING
 
 %files ipcserver
 %{_bindir}/s6-applyuidgid

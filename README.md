@@ -1,5 +1,11 @@
 # rpms
 
+This project contains rpm spec and instructions to build rpm packages for Fedora, Centos, Redhat. Now it contains rpm spec for:
+- [skalibs](https://skarnet.org/software/skalibs)
+- [execline](https://skarnet.org/software/execline)
+- [s6](https://skarnet.org/software/s6/)
+- [utmps](https://skarnet.org/software/utmps/)
+
 With the help of fedora linux container, you can reproduce the rpm building process as you follow the instruction. The container is created according to [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#introduction).
 
  The container contains:
@@ -42,6 +48,9 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [execline](execline/readme.md)👌
 - [s6](s6/readme.md)👌
 - [utmps](utmps/readme.md)
+
+## license
+[ISC](https://en.wikipedia.org/wiki/ISC_license)
 
 ## reference
 - [s6 packaging for debian](https://github.com/multiplexd/s6-packaging)

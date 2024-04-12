@@ -77,6 +77,7 @@ ln -s ../bin/execline wait
 %{_bindir}/*
 %{_sbindir}/*
 %{_libdir}/*.so.*
+%license COPYING
 
 %files devel
 %{_libdir}/*.so
@@ -94,8 +95,6 @@ ldconfig
 
 %postun
 ldconfig
-
-%license COPYING
 
 %changelog
 * Mon Apr 1 2024 Wang Qi <ericwq057@qq.com> - v0.1

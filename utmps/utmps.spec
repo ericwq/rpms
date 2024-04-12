@@ -96,6 +96,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
 %{_bindir}/*
+%license COPYING
 #%%{_sbindir}/*
 
 %files libs
@@ -117,8 +118,6 @@ ldconfig
 
 %postun
 ldconfig
-
-%license COPYING
 
 %changelog
 * Fri Apr 12 2024 Wang Qi <ericwq057@qq.com> - v0.1
