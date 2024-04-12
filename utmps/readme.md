@@ -1,4 +1,27 @@
+## NOTICE: cancel this package
 
+As the author of utmps Laurent said on skaware mail list:
+```
+All of that being said, however, my opinion is that you *should not*
+package utmps for Fedora. utmp management is a distro-wide decision:
+the utmp database is unique and accessed by several components in the
+system. Fedora uses glibc, and glibc has its own utmp implementation,
+and all the existing Fedora packages expect utmp to be managed by the
+glibc implementation. Adding utmps, and packages that will use utmps,
+will introduce conflict, and break things. (The utmp databases won't
+have the correct permissions, glibc will access the files directly
+without the locking that utmps does and concurrent access will cause
+file corruption, etc.)
+
+utmps isn't something that you can add like this and have some packages
+depend on it and others not. It has to be a concerted effort by the whole
+distribution, to decide if they switch to it or not. Alpine uses it
+because musl doesn't provide a real utmp implementation; the transition
+could be done incrementally without conflicting. glibc-based distros are
+another story, a transition would need to be done atomically. And unless
+you submit a proposal to Fedora and it is discussed and accepted by the
+Powers That Be, it's not happening.
+```
 ## build utmps
 
 - run `rpmdev-setuptree` to create necessary directorys.

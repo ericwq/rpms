@@ -47,7 +47,7 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [skalibs](skalibs/readme.md)👌
 - [execline](execline/readme.md)👌
 - [s6](s6/readme.md)👌
-- [utmps](utmps/readme.md)
+- [utmps](utmps/readme.md)❌
 
 ## license
 [ISC](https://en.wikipedia.org/wiki/ISC_license)
