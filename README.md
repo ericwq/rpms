@@ -4,7 +4,7 @@ This project contains rpm spec and instructions to build rpm packages for Fedora
 - [skalibs](https://skarnet.org/software/skalibs)
 - [execline](https://skarnet.org/software/execline)
 - [s6](https://skarnet.org/software/s6/)
-- [utmps](https://skarnet.org/software/utmps/)
+- [s6-dns](https://skarnet.org/software/s6-dns/)
 
 With the help of fedora linux container, you can reproduce the rpm building process as you follow the instruction. The container is created according to [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#introduction).
 
@@ -48,6 +48,8 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [execline](execline/readme.md)👌
 - [s6](s6/readme.md)👌
 - [utmps](utmps/readme.md)❌
+- [s6-dns](s6-dns/readme.md)👌
+- [s6-networking](s6-networking/readme.md)🏗
 
 ## license
 [ISC](https://en.wikipedia.org/wiki/ISC_license)
