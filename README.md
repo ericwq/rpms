@@ -1,10 +1,6 @@
 # rpms
 
-This project contains rpm spec and instructions to build rpm packages for Fedora, Centos, Redhat. Now it contains rpm spec for:
-- [skalibs](https://skarnet.org/software/skalibs)
-- [execline](https://skarnet.org/software/execline)
-- [s6](https://skarnet.org/software/s6/)
-- [s6-dns](https://skarnet.org/software/s6-dns/)
+This project contains rpm spec and instructions to build rpm packages for Fedora, Centos, Redhat. Now it contains rpm spec for: [skalibs](https://skarnet.org/software/skalibs), [execline](https://skarnet.org/software/execline), [s6](https://skarnet.org/software/s6/), [s6-dns](https://skarnet.org/software/s6-dns/)
 
 With the help of fedora linux container, you can reproduce the rpm building process as you follow the instruction. The container is created according to [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#introduction).
 
@@ -19,7 +15,7 @@ With the help of fedora linux container, you can reproduce the rpm building proc
 ## requirement
 To reproduce the buing process, you need `git` and `docker` on your local system.
 
-## prepare container
+## prepare the container
 Build the container first. Note: only one of the `docker build` is needed. The main difference is the former will use docker cache.
 ```sh
 git clone https://github.com/ericwq/rpms.git
@@ -43,6 +39,8 @@ login the container as packager.
 ```sh
 docker exec -u packager -it rpm-builder bash
 ```
+
+## build rpm packages
 Next, follow the instructions for individual project. Note, you must follow the following order (top -> down) to build indivial rpm packages, there are dependency rule.
 - [skalibs](skalibs/readme.md)👌
 - [execline](execline/readme.md)👌
