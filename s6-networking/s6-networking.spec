@@ -63,7 +63,6 @@ This package contains document for %{name}.
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
 	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
-	--libexecdir=%{_libexecdir}%{name} \
 	--with-sysdeps=%{_libdir}/skalibs/sysdeps \
 	--enable-ssl=libtls
 make %{?_smp_mflags}
