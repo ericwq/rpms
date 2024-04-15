@@ -18,9 +18,11 @@ Group:	  System/Libraries
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  skalibs.pc
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+BuildRequires: gcc make pkgconfig
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
-BuildRequires: gcc make pkgconfig
 
 %description
 skalibs is a package centralizing the free software / open source C 
@@ -37,7 +39,7 @@ Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 
 %description devel
-This package holds the development headers and sysdeps files for the library.
+This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
@@ -46,12 +48,12 @@ Provides: %{name}-devel-static = %{version}
 Obsoletes:%{name}-devel-static < %{version}
 
 %description devel-static
-This package contains the static version of the library used for development.
+This package contains static library for %{name}.
 
 %package  doc
 Summary:  Document for %{name}
 %description doc
-This package contains html document for %{name}.
+This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -89,12 +91,6 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %files doc
 %defattr(-,root,root,-)
 %{_docdir}/%{name}/*
-
-%post
-ldconfig
-
-%postun
-ldconfig
 
 %changelog
 * Mon Apr 01 2024 Wang Qi <ericwq057@qq.com> - v0.1
