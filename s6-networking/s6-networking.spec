@@ -36,7 +36,7 @@ management and clock synchronization. Optionally, it also includes
 command-line TLS/SSL tools for secure communications.
 
 %package  devel
-Summary:  Development environment for %{name}
+Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}

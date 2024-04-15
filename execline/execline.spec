@@ -30,7 +30,7 @@ execlineb program is meant to be used as an interpreter for a text
 file; the other commands are essentially useful inside an execlineb script.
 
 %package  devel
-Summary:  Development environment for %{name}
+Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}

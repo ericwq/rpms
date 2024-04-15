@@ -41,7 +41,7 @@ s6 managed services need to create their own service directories,
 and symlink them to the scan directory.
 
 %package  devel
-Summary:  Development environment for %{name}
+Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}

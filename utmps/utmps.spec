@@ -19,17 +19,18 @@ Group:	  System Environment/Libraries
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  utmps.pc
 Patch0:	  0001-add-stub-utmp.h.patch
-Requires: s6-ipcserver >= 2.12
+Requires: s6 >= 2.12
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: gcc make pkgconfig
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
 
 %description
-utmps is a secure implementation of user accounting, using
-a daemon as the only authority to manage the utmp and wtmp
-data; programs running utmp functions are just clients to
-this daemon.
+utmps is a secure implementation of user accounting, using a daemon as
+the only authority to manage the utmp and wtmp data; programs running
+utmp functions are just clients to this daemon.
 
 %package  libs
 Summary:  A secure utmp/wtmp implementation (libraries)
@@ -51,7 +52,7 @@ Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 
 %description devel
-This package holds the development headers for the library.
+This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  A secure utmp/wtmp implementation (static library)
@@ -61,7 +62,7 @@ Provides: %{name}-static = %{version}
 Obsoletes:%{name}-static < %{version}
 
 %description devel-static
-This package contains the static library for %{name}.
+This package contains static library for %{name}.
 
 %package  doc
 Summary:  A secure utmp/wtmp implementation (documentation)
@@ -112,12 +113,6 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files doc
 %{_docdir}/%{name}/*
-
-%post
-ldconfig
-
-%postun
-ldconfig
 
 %changelog
 * Fri Apr 12 2024 Wang Qi <ericwq057@qq.com> - v0.1

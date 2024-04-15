@@ -29,7 +29,7 @@ s6-dns is a suite of DNS client programs and libraries for Unix systems,
 as an alternative to the BIND, djbdns or other DNS clients.
 
 %package  devel
-Summary:  Development environment for %{name}
+Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}
 Provides: pkgconfig(%{name}) = %{version}-%{release}

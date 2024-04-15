@@ -34,7 +34,7 @@ supervised by the s6 infrastructure, and that one-time scripts are
 also run in a controlled environment.
 
 %package  devel
-Summary:  Development environment for %{name}
+Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}
