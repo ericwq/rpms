@@ -8,7 +8,7 @@
 %define _build_id_links none
 
 Name:	  tipidee
-Version:  0.0.3.0
+Version:  0.0.4.0
 Release:  1%{?dist}
 Summary:  A web server from skarnet.org
 License:  ISC

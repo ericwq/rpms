@@ -31,7 +31,7 @@ as an alternative to the BIND, djbdns or other DNS clients.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} = %{version}
+Requires: %{name} >= %{version}
 Provides: pkgconfig(%{name}) = %{version}-%{release}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}

@@ -8,7 +8,7 @@
 %define _build_id_links none
 
 Name:	  execline
-Version:  2.9.4.0
+Version:  2.9.5.0
 Release:  1%{?dist}
 Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts.
 License:  ISC
@@ -32,7 +32,7 @@ file; the other commands are essentially useful inside an execlineb script.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} = %{version}
+Requires: %{name} >= %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel

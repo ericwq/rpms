@@ -38,7 +38,7 @@ command-line TLS/SSL tools for secure communications.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} = %{version}
+Requires: %{name} >= %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel

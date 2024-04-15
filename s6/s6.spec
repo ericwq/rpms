@@ -9,7 +9,7 @@
 %define _s6_scan_dir %{_sharedstatedir}/s6/service
 
 Name:	  s6
-Version:  2.12.0.3
+Version:  2.12.0.4
 Release:  1%{?dist}
 Summary:  skarnet.org's small & secure supervision software suite
 License:  ISC
@@ -43,7 +43,7 @@ and symlink them to the scan directory.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} = %{version}
+Requires: %{name} >= %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel
