@@ -25,7 +25,10 @@ rpm -qpR ~/rpmbuild/RPMS/x86_64/execline-2.9.4.0-1.fc39.x86_64.rpm
 sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/execline-doc-2.9.4.0-1.fc39.x86_64.rpm
 sudo dnf remove -y execline
 ```
-
+is shared library ready?
+```sh
+sudo ldconfig -p | grep execline
+```
 List the direct dependencies of the named package.
 ```sh
 dnf repoquery --requires <package name>

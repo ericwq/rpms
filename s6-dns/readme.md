@@ -27,7 +27,14 @@ rpm -ql <local rpm file>
 rpm -qpR <local rpm file>
 rpm -qp --provides <local rpm file>
 ```
-
+is pkg-config package ready?
+```sh
+pkg-config --list-all
+```
+is shared library ready?
+```sh
+sudo ldconfig -p | grep s6dns
+```
 install and remove rpm
 ```sh
 sudo rpm -ivh <local rpm file>

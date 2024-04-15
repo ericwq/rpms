@@ -26,7 +26,10 @@ rpm -qi ~/rpmbuild/RPMS/x86_64/s6-devel-2.12.0.3-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
 rpm -qpR ~/rpmbuild/RPMS/x86_64/s6-ipcserver-2.12.0.3-1.fc39.x86_64.rpm
 ```
-
+is shared library ready?
+```sh
+sudo ldconfig -p | grep s6
+```
 install and remove rpm
 ```sh
 sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm

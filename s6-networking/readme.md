@@ -26,13 +26,15 @@ rpm -ql <local rpm file>
 rpm -qpR <local rpm file>
 rpm -qp --provides <local rpm file>
 ```
-
+is shared library ready?
+```sh
+sudo ldconfig -p | grep s6dns
+```
 install and remove rpm
 ```sh
 sudo rpm -ivh <local rpm file>
 sudo dnf remove -y s6
 ```
-
 list install/erase scriptlets from package(s)
 ```sh
 rpm --scripts -qp <local rpm file

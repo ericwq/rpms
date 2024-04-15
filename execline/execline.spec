@@ -17,9 +17,11 @@ Group:	  System/Libraries
 
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
+Requires(post): /sbin/ldconfig
+Requires(postun): /sbin/ldconfig
+BuildRequires: pkgconfig(skalibs)
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
-BuildRequires: pkgconfig(skalibs)
 
 %description
 execline is a (non-interactive) scripting language, like sh - but its
@@ -34,7 +36,7 @@ Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel
-This package holds the development headers and sysdeps files for the library.
+This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
@@ -42,7 +44,7 @@ Group:	  Development/C
 Provides: %{name}-devel-static = %{version}
 Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
-This package contains the static version of the library used for development.
+This package contains static library for %{name}.
 
 %package  doc
 Summary:  Document for %{name}
@@ -50,7 +52,7 @@ Summary:  Document for %{name}
 This package contains document for %{name}.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic --enable-multicall \
@@ -89,12 +91,6 @@ ln -s ../bin/execline wait
 %files doc
 %defattr(-,root,root,-)
 %{_docdir}/%{name}/*
-
-%post
-ldconfig
-
-%postun
-ldconfig
 
 %changelog
 * Mon Apr 1 2024 Wang Qi <ericwq057@qq.com> - v0.1

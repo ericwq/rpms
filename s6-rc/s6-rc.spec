@@ -17,13 +17,13 @@ Group:	  System/Base
 
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires: skalibs-devel >= 2.14
 BuildRequires: execline-devel >= 2.9.4.0
 BuildRequires: s6-devel >= 2.12
+Provides: %{name} = %{version}
+Obsoletes:%{name} < %{version}
 
 %description
 s6-rc is a service manager for s6-based systems, i.e. a suite of

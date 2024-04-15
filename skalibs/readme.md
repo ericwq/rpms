@@ -25,7 +25,14 @@ rpm -qp --provides ~/rpmbuild/RPMS/x86_64/skalibs-devel-2.14.1.1-1.fc39.x86_64.r
 rpm -qpR ~/rpmbuild/RPMS/x86_64/skalibs-devel-static-2.14.1.1-1.fc39.x86_64.rpm
 sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/skalibs-doc-2.14.1.1-1.fc39.x86_64.rpm
 ```
-
+is pkg-config package ready?
+```sh
+pkg-config --list-all
+```
+is shared library ready?
+```sh
+sudo ldconfig -p | grep skarnet
+```
 use the following command to find out which package provides a perticular file.
 ```sh
 rpm -qf {/path/to/file_name}

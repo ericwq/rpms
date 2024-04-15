@@ -30,6 +30,10 @@ install and remove rpm
 sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-rc-devel-static-0.5.4.2-1.fc39.x86_64.rpm
 sudo dnf remove -y s6
 ```
+is shared library ready?
+```sh
+sudo ldconfig -p | grep s6rc
+```
 List the direct dependencies of the named package.
 ```sh
 dnf repoquery --requires <package name>

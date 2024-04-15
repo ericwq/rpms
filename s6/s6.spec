@@ -23,11 +23,11 @@ Source2:  s6.svscan-boot
 Source3:  s6.preset
 Provides: %{name} = %{version}
 Obsoletes:%{name} < %{version}
-Requires: execline
+Requires: execline >= 2.9.4.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires: skalibs-devel >= 2.14.1.0
-BuildRequires: execline-devel
+BuildRequires: execline-devel >= 2.9.4.0
 BuildRequires: systemd-rpm-macros
 
 %description
@@ -47,7 +47,7 @@ Requires: %{name} = %{version}
 Provides: %{name}-devel = %{version}
 Obsoletes:%{name}-devel < %{version}
 %description devel
-This package holds the development files for %{name}.
+This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
@@ -55,7 +55,7 @@ Group:	  Development/C
 Provides: %{name}-devel-static = %{version}
 Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
-This package contains the static version of the library used for development.
+This package contains static library for %{name}.
 
 %package  doc
 Summary:  Document for %{name}
@@ -63,7 +63,7 @@ Summary:  Document for %{name}
 This package contains document for %{name}.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup
 # change s6.svscan-boot path and scan dir for s6
 sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}\/s6|" %{SOURCE1}
 sed -i "s|@@S6_SCAN_DIR@@|%{_s6_scan_dir}|" %{SOURCE1}
@@ -105,14 +105,12 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %{_docdir}/%{name}/*
 
 %post
-/sbin/ldconfig
 %systemd_post %{name}.service
 
 %preun
 %systemd_preun %{name}.service
 
 %postun
-/sbin/ldconfig
 %systemd_postun_with_restart %{name}.service
 if [ $1 -eq 0 ]; then
 	rm -rf %{_s6_scan_dir}/
@@ -120,7 +118,7 @@ fi
 
 %transfiletriggerin -- %{_s6_scan_dir}
 s6-svscanctl -an %{_s6_scan_dir}
-echo 'trigger s6-svscan' | systemd-cat -p info
+# echo 'trigger s6-svscan' | systemd-cat -p info
 
 %transfiletriggerpostun -- %{_s6_scan_dir}
 s6-svscanctl -an %{_s6_scan_dir}

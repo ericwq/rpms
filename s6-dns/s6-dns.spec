@@ -87,12 +87,6 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %files doc
 %{_docdir}/%{name}/*
 
-%post
-/sbin/ldconfig
-
-%postun
-/sbin/ldconfig
-
 %changelog
 * Sat Apr 13 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged
