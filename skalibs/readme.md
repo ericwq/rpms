@@ -21,6 +21,7 @@ check package information, contents, dependencies for rpm, install rpm.
 ```sh
 rpm -qi ~/rpmbuild/RPMS/x86_64/skalibs-2.14.1.1-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/skalibs-devel-2.14.1.1-1.fc39.x86_64.rpm
+rpm -qp --provides ~/rpmbuild/RPMS/x86_64/skalibs-devel-2.14.1.1-1.fc39.x86_64.rpm
 rpm -qpR ~/rpmbuild/RPMS/x86_64/skalibs-devel-static-2.14.1.1-1.fc39.x86_64.rpm
 sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/skalibs-doc-2.14.1.1-1.fc39.x86_64.rpm
 ```
