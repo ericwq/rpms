@@ -49,7 +49,7 @@ rpm -qf {/path/to/file_name}
 rpm -q --whatprovides {/path/to/file_name}
 ```
 ## prepare build dependencies
-for this project, we already have all the dependencies.
+download project dependencies.
 
 ```sh
 sudo dnf builddep -y ~/rpmbuild/SPECS/s6-networking.spec

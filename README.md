@@ -47,7 +47,8 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [s6](s6/readme.md)👌
 - [utmps](utmps/readme.md)❌
 - [s6-dns](s6-dns/readme.md)👌
-- [s6-networking](s6-networking/readme.md)🏗
+- [s6-networking](s6-networking/readme.md)👌
+- [s6-rc](s6-rc/readme.md)🏗
 
 ## license
 [ISC](https://en.wikipedia.org/wiki/ISC_license)
