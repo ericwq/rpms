@@ -21,14 +21,17 @@ rpmbuild -bb ~/rpmbuild/SPECS/tipidee.spec     #build RPMS
 ```
 check package information, contents, dependencies for rpm.
 ```sh
-rpm -qi ~/rpmbuild/RPMS/x86_64/tipidee-doc-0.5.4.2-1.fc39.x86_64.rpm
-rpm -ql ~/rpmbuild/RPMS/x86_64/tipidee-0.5.4.2-1.fc39.x86_64.rpm
-rpm -qpR ~/rpmbuild/RPMS/x86_64/tipidee-devel-0.5.4.2-1.fc39.x86_64.rpm
+rpm -qi ~/rpmbuild/RPMS/x86_64/tipidee-0.0.4.0-1.fc39.x86_64.rpm
+rpm -ql ~/rpmbuild/RPMS/x86_64/tipidee-devel-0.0.4.0-1.fc39.x86_64.rpm
+rpm -qpR ~/rpmbuild/RPMS/x86_64/tipidee-devel-static-0.0.4.0-1.fc39.x86_64.rpm
 ```
 install and remove rpm
 ```sh
-sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/tipidee-devel-static-0.5.4.2-1.fc39.x86_64.rpm
-sudo dnf remove -y s6
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/tipidee-0.0.4.0-1.fc39.x86_64.rpm
+sudo dnf remove -y s6       #remove a particular pacakage
+yum list installed          #list all installed packages
+rpm -qa                     #list all installed rpm packages.
+rpm -q {package_name}       #list a particular package
 ```
 is shared library ready?
 ```sh
