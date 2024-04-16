@@ -19,6 +19,10 @@ Group:	  System/Base
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
+Requires: pkgconfig(skalibs) >= 2.14.1.0
+Requires: execline >= 2.9.4.0
+Requires: s6 >= 2.12.0.3
+Requires: pkgconfig(s6-dns) >= 2.3.7.1
 BuildRequires: skalibs-devel >= 2.14.1.0
 BuildRequires: execline-devel >= 2.9.4.0
 BuildRequires: s6-devel >= 2.12.0.3
