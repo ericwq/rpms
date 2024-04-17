@@ -19,11 +19,14 @@ Group:	  System/Base
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires: skalibs-devel >= 2.14
+Requires: skalibs >= 2.14.0.0
+Requires: execline >= 2.9.4.0
+Requires: s6 >= 2.12.0.0
+BuildRequires: pkgconfig(skalibs) >= 2.14.0.0
 BuildRequires: execline-devel >= 2.9.4.0
-BuildRequires: s6-devel >= 2.12
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
+BuildRequires: s6-devel >= 2.12.0.0
+BuildRequires: gcc pkgconfig
+BuildRequires: make >= 3.81
 
 %description
 s6-rc is a service manager for s6-based systems, i.e. a suite of
@@ -36,17 +39,13 @@ also run in a controlled environment.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} >= %{version}
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
+Requires: %{name} = %{version}
 %description devel
 This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
 Group:	  Development/C
-Provides: %{name}-devel-static = %{version}
-Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
 This package contains static library for %{name}.
 

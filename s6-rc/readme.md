@@ -32,7 +32,7 @@ sudo dnf remove -y s6
 ```
 is shared library ready?
 ```sh
-sudo ldconfig -p | grep s6rc
+ldconfig -p | grep s6rc
 ```
 List the direct dependencies of the named package.
 ```sh

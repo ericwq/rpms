@@ -28,12 +28,12 @@ rpm -qp --provides <local rpm file>
 ```
 is shared library ready?
 ```sh
-sudo ldconfig -p | grep s6dns
+ldconfig -p | grep -E 's6net|stls'
 ```
 install and remove rpm
 ```sh
 sudo rpm -ivh <local rpm file>
-sudo dnf remove -y s6
+sudo dnf remove -y s6-networking
 ```
 list install/erase scriptlets from package(s)
 ```sh

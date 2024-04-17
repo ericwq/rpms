@@ -8,7 +8,7 @@
 %define _build_id_links none
 
 Name:	  execline
-Version:  2.9.5.0
+Version:  2.9.5.1
 Release:  1%{?dist}
 Summary:  A small scripting language, to be used in place of a shell in non-interactive scripts.
 License:  ISC
@@ -19,9 +19,9 @@ Group:	  System/Libraries
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires: pkgconfig(skalibs)
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
+Requires: skalibs >= 2.14.1.1
+BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
+BuildRequires: gcc make >= 3.81
 
 %description
 execline is a (non-interactive) scripting language, like sh - but its
@@ -32,17 +32,13 @@ file; the other commands are essentially useful inside an execlineb script.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} >= %{version}
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
+Requires: %{name} = %{version}
 %description devel
 This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
 Group:	  Development/C
-Provides: %{name}-devel-static = %{version}
-Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
 This package contains static library for %{name}.
 

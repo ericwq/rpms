@@ -19,12 +19,9 @@ Group:	  System/Base
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-Requires: pkgconfig(skalibs) >= 2.14
-Requires: s6-networking >= 2.7.0.1
-BuildRequires: skalibs-devel >= 2.14.1.0
-BuildRequires: s6-networking-devel >= 2.7.0.1
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
+Requires: skalibs >= 2.14.1.1
+Requires: s6-networking >= 2.7.0.2
+BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
 
 %description
 tipidee is a web server. It supports HTTP 1.0 and 1.1. It aims to be
@@ -36,16 +33,12 @@ mandatory parts. It is usable with both HTTP and HTTPS.
 Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} = %{version}
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
 %description devel
 This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
 Group:	  Development/C
-Provides: %{name}-devel-static = %{version}
-Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
 This package contains static library for %{name}.
 

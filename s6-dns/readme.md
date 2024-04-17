@@ -30,10 +30,11 @@ rpm -qp --provides <local rpm file>
 is pkg-config package ready?
 ```sh
 pkg-config --list-all
+pkg-config --print-provides s6-dns
 ```
 is shared library ready?
 ```sh
-sudo ldconfig -p | grep s6dns
+ldconfig -p | grep -E 's6dns|skadns'
 ```
 install and remove rpm
 ```sh

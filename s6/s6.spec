@@ -21,14 +21,15 @@ Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  s6.service
 Source2:  s6.svscan-boot
 Source3:  s6.preset
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
 Requires: execline >= 2.9.4.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires: skalibs-devel >= 2.14.1.0
-BuildRequires: execline-devel >= 2.9.4.0
+Requires: skalibs >= 2.14.1.1
+Requires: execline >= 2.9.5.0
+BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
+BuildRequires: execline-devel >= 2.9.5.0
 BuildRequires: systemd-rpm-macros
+BuildRequires: gcc make >= 3.81
 
 %description
 s6 is a small suite of programs for UNIX, designed to allow process
@@ -43,17 +44,13 @@ and symlink them to the scan directory.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} >= %{version}
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
+Requires: %{name} = %{version}
 %description devel
 This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
 Group:	  Development/C
-Provides: %{name}-devel-static = %{version}
-Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
 This package contains static library for %{name}.
 
@@ -65,13 +62,13 @@ This package contains document for %{name}.
 %prep
 %autosetup
 # change s6.svscan-boot path and scan dir for s6
-sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libdir}\/s6|" %{SOURCE1}
+sed -i "s|@@S6_SVSCANBOOT_PATH@@|%{_libexecdir}\/%{name}|" %{SOURCE1}
 sed -i "s|@@S6_SCAN_DIR@@|%{_s6_scan_dir}|" %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
 	--libdir=%{_libdir} --dynlibdir=%{_libdir} --bindir=%{_bindir} \
-	--libexecdir=%{_libexecdir} \
+	--libexecdir=%{_libexecdir}/%{name} \
 	--with-sysdeps=%{_libdir}/skalibs/sysdeps
 make %{?_smp_mflags}
 
@@ -79,7 +76,7 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 
 install -D -m 0644 %{SOURCE1} "%{buildroot}%{_unitdir}/s6.service"
-install -D -m 0755 %{SOURCE2} "%{buildroot}%{_libdir}/s6/s6.svscan-boot"
+install -D -m 0755 %{SOURCE2} "%{buildroot}%{_libexecdir}/%{name}/s6.svscan-boot"
 install -D -m 0644 %{SOURCE3} "%{buildroot}%{_presetdir}/50-s6.preset"
 
 # move html doc
@@ -88,7 +85,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
 %files
 %{_bindir}/*
-%{_libdir}/s6/*
+%{_libexecdir}/%{name}/*
 %{_libdir}/*.so.*
 %{_presetdir}/50-s6.preset
 %config %{_unitdir}/s6.service

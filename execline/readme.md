@@ -17,13 +17,21 @@ rpmbuild -bc ~/rpmbuild/SPECS/execline.spec     #just compile
 rpmbuild -bs ~/rpmbuild/SPECS/execline.spec     #build source RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/execline.spec     #build RPMS
 ```
-check package information, contents, dependencies for rpm, install rpm.
+check package information, contents, dependencies for rpm.
 ```sh
-rpm -qi ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.4.0-1.fc39.x86_64.rpm
-rpm -ql ~/rpmbuild/RPMS/x86_64/execline-devel-static-2.9.4.0-1.fc39.x86_64.rpm
-rpm -qpR ~/rpmbuild/RPMS/x86_64/execline-2.9.4.0-1.fc39.x86_64.rpm
-sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/execline-doc-2.9.4.0-1.fc39.x86_64.rpm
-sudo dnf remove -y execline
+rpm -qi ~/rpmbuild/RPMS/x86_64/execline-2.9.5.1-1.fc39.x86_64.rpm
+rpm -ql ~/rpmbuild/RPMS/x86_64/execline-2.9.5.1-1.fc39.x86_64.rpm
+rpm -qp --provides ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.5.1-1.fc39.x86_64.rpm
+rpm -qpR ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.5.1-1.fc39.x86_64.rpm
+```
+install, update, remove and check rpm installed.
+```sh
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.5.1-1.fc39.x86_64.rpm
+sudo rpm -Uvh ~/rpmbuild/RPMS/x86_64/execline-devel-2.9.5.1-1.fc39.x86_64.rpm
+sudo dnf remove -y execline #remove a particular pacakage
+yum list installed          #list all installed packages
+rpm -qa                     #list all installed rpm packages.
+rpm -q {package_name}       #list a particular package
 ```
 is shared library ready?
 ```sh

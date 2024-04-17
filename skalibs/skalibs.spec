@@ -20,7 +20,8 @@ Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  skalibs.pc
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-BuildRequires: gcc make pkgconfig
+BuildRequires: gcc pkgconfig
+BuildRequires: make >= 3.81
 %description
 skalibs is a package centralizing the free software / open source C 
 development files used for building all software at skarnet.org: it
@@ -30,7 +31,7 @@ install skalibs if you plan to build skarnet.org software.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} >= %{version}
+Requires: %{name} = %{version}
 Provides: pkgconfig(%{name}) = %{version}-%{release}
 %description devel
 This package contains development files for %{name}.

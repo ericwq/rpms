@@ -15,27 +15,32 @@ rpmlint -v ~/rpmbuild/SPECS/s6.spec
 ```
 run `rpmbuild` to build rpm.
 ```sh
-spectool -g -R ~/rpmbuild/SPECS/s6.spec   #download the source
-rpmbuild -bc ~/rpmbuild/SPECS/s6.spec     #just compile
-rpmbuild -bs ~/rpmbuild/SPECS/s6.spec     #build source RPMS
-rpmbuild -bb ~/rpmbuild/SPECS/s6.spec     #build RPMS
+spectool -g -R ~/rpmbuild/SPECS/s6.spec #download the source
+rpmbuild -bc ~/rpmbuild/SPECS/s6.spec   #just compile
+rpmbuild -bp ~/rpmbuild/SPECS/s6.spec   #build through %prep
+rpmbuild -bs ~/rpmbuild/SPECS/s6.spec   #build source RPMS
+rpmbuild -bb ~/rpmbuild/SPECS/s6.spec   #build RPMS
 ```
 check package information, contents, dependencies for rpm.
 ```sh
 rpm -qi ~/rpmbuild/RPMS/x86_64/s6-devel-2.12.0.3-1.fc39.x86_64.rpm
 rpm -ql ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
-rpm -qpR ~/rpmbuild/RPMS/x86_64/s6-ipcserver-2.12.0.3-1.fc39.x86_64.rpm
+rpm -qp --provides ~/rpmbuild/RPMS/x86_64/s6-devel-2.12.0.3-1.fc39.x86_64.rpm
+rpm -qpR ~/rpmbuild/RPMS/x86_64/s6-devel-2.12.0.3-1.fc39.x86_64.rpm
+```
+install, update, remove and check rpm installed.
+```sh
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
+sudo rpm -Uvh ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
+sudo dnf remove -y s6       #remove a particular pacakage
+yum list installed          #list all installed packages
+rpm -qa                     #list all installed rpm packages.
+rpm -q {package_name}       #list a particular package
 ```
 is shared library ready?
 ```sh
-sudo ldconfig -p | grep s6
+ldconfig -p | grep -E 's6|s6auto'
 ```
-install and remove rpm
-```sh
-sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm
-sudo dnf remove -y s6
-```
-
 list install/erase scriptlets from package(s)
 ```sh
 rpm --scripts -qp ~/rpmbuild/RPMS/x86_64/s6-2.12.0.3-1.fc39.x86_64.rpm

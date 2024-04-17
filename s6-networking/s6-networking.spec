@@ -19,18 +19,18 @@ Group:	  System/Base
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-Requires: pkgconfig(skalibs) >= 2.14.1.0
+Requires: skalibs >= 2.14.1.0
 Requires: execline >= 2.9.4.0
 Requires: s6 >= 2.12.0.3
-Requires: pkgconfig(s6-dns) >= 2.3.7.1
-BuildRequires: skalibs-devel >= 2.14.1.0
+Requires: s6-dns >= 2.3.7.1
+BuildRequires: pkgconfig(skalibs) >= 2.14.1.0
 BuildRequires: execline-devel >= 2.9.4.0
 BuildRequires: s6-devel >= 2.12.0.3
-BuildRequires: s6-dns-devel >= 2.3.7.1
+BuildRequires: pkgconfig(s6-dns) >= 2.3.7.1
 BuildRequires: openssl-devel
 BuildRequires: libretls-devel >= 3.8.1
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
+BuildRequires: gcc pkgconfig
+BuildRequires: make >= 3.81
 
 %description
 s6-networking is a suite of small networking utilities for Unix systems.
@@ -42,17 +42,13 @@ command-line TLS/SSL tools for secure communications.
 %package  devel
 Summary:  Development files for %{name}
 Group:	  Development/C
-Requires: %{name} >= %{version}
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
+Requires: %{name} = %{version}
 %description devel
 This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
 Group:	  Development/C
-Provides: %{name}-devel-static = %{version}
-Obsoletes:%{name}-devel-static < %{version}
 %description devel-static
 This package contains static library for %{name}.
 
