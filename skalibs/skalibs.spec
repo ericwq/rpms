@@ -21,9 +21,6 @@ Source1:  skalibs.pc
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 BuildRequires: gcc make pkgconfig
-Provides: %{name} = %{version}
-Obsoletes:%{name} < %{version}
-
 %description
 skalibs is a package centralizing the free software / open source C 
 development files used for building all software at skarnet.org: it
@@ -35,18 +32,12 @@ Summary:  Development files for %{name}
 Group:	  Development/C
 Requires: %{name} >= %{version}
 Provides: pkgconfig(%{name}) = %{version}-%{release}
-Provides: %{name}-devel = %{version}
-Obsoletes:%{name}-devel < %{version}
-
 %description devel
 This package contains development files for %{name}.
 
 %package  devel-static
 Summary:  Static %{name} library
 Group:	  Development/C
-Provides: %{name}-devel-static = %{version}
-Obsoletes:%{name}-devel-static < %{version}
-
 %description devel-static
 This package contains static library for %{name}.
 
@@ -57,7 +48,7 @@ This package contains document for %{name}.
 
 %prep
 %autosetup -n %{name}-%{version}
-sed -i "s|@@VERSION@@|%{version}|" -i %{SOURCE1}
+sed -i "s|@@VERSION@@|%{version}|" %{SOURCE1}
 
 %build
 ./configure  --libdir=%{_libdir} --dynlibdir=%{_libdir} \
