@@ -35,7 +35,7 @@ rpm -q {package_name}       #list a particular package
 ```
 is shared library ready?
 ```sh
-sudo ldconfig -p | grep execline
+ldconfig -p | grep execline
 ```
 List the direct dependencies of the named package.
 ```sh

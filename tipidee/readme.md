@@ -10,6 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/tipidee/tipidee.spec ~/rpmbuild/SPECS/
+cp ~/develop/rpms/tipidee/tipidee.sysusers ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/tipidee.spec
 ```
 run `rpmbuild` to build rpm.
@@ -37,6 +38,11 @@ rpm -q {package_name}       #list a particular package
 is shared library ready?
 ```sh
 ldconfig -p | grep tipidee
+```
+check user/group is created.
+```sh
+getent passwd www
+getent group www
 ```
 List the direct dependencies of the named package.
 ```sh

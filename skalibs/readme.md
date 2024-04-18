@@ -41,7 +41,7 @@ pkg-config --print-provides skalibs
 ```
 is shared library ready?
 ```sh
-sudo ldconfig -p | grep skarnet
+ldconfig -p | grep skarnet
 ```
 use the following command to find out which package provides a perticular file.
 ```sh

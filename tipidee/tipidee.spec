@@ -17,11 +17,14 @@ Group:	  System/Base
 
 %undefine _disable_source_fetch
 Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
+Source1:  tipidee.sysusers
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 Requires: skalibs >= 2.14.1.1
-Requires: s6-networking >= 2.7.0.2
+Recommends: s6-networking >= 2.7.0.2
 BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
+BuildRequires: systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 %description
 tipidee is a web server. It supports HTTP 1.0 and 1.1. It aims to be
@@ -49,6 +52,7 @@ This package contains document for %{name}.
 
 %prep
 %autosetup
+%sysusers_create_compat %{SOURCE1}
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -59,6 +63,7 @@ make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 # move html doc
 mkdir -p %{buildroot}%{_docdir}
@@ -68,6 +73,7 @@ mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_libexecdir}/%{name}/*
+%{_sysusersdir}/%{name}.conf
 %license COPYING
 
 %files devel
