@@ -10,7 +10,7 @@
 rm -rf rpmbuild
 rpmdev-setuptree
 cp ~/develop/rpms/tipidee/tipidee.spec ~/rpmbuild/SPECS/
-cp ~/develop/rpms/tipidee/tipidee.sysusers ~/rpmbuild/SOURCES/
+cp ~/develop/rpms/tipidee/{tipidee.sysusers,index.html} ~/rpmbuild/SOURCES/
 rpmlint -v ~/rpmbuild/SPECS/tipidee.spec
 ```
 run `rpmbuild` to build rpm.
@@ -29,11 +29,13 @@ rpm -qp --provides <rpm file>
 ```
 install and remove rpm
 ```sh
-sudo rpm -ivh <rpm files>
-sudo dnf remove -y s6       #remove a particular pacakage
-yum list installed          #list all installed packages
-rpm -qa                     #list all installed rpm packages.
-rpm -q {package_name}       #list a particular package
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/tipidee-0.0.4.0-1.fc39.x86_64.rpm
+sudo rpm -ivh ~/rpmbuild/RPMS/x86_64/tipidee-s6-example-0.0.4.0-1.fc39.x86_64.rpm
+sudo dnf remove -y tipidee-s6-example
+sudo dnf remove -y tipidee              #remove a particular pacakage
+yum list installed                      #list all installed packages
+rpm -qa | grep 'tipidee'                #list all installed rpm packages.
+rpm -q {package_name}                   #list a particular package
 ```
 is shared library ready?
 ```sh
@@ -41,8 +43,22 @@ ldconfig -p | grep tipidee
 ```
 check user/group is created.
 ```sh
-getent passwd www
+getent passwd www wwwlog
 getent group www
+```
+start/stop service
+```sh
+systemctl status s6.service                 #check service status
+sudo systemctl enable s6.service            #enable service
+sudo systemctl start s6.service             #start service
+sudo systemctl restart s6.service           #restart service
+sudo systemctl stop s6.service              #stop service
+```
+check the service log
+```sh
+sudo journalctl -u s6.service               #only show s6.service log
+sudo journalctl -f -u s6.service            #keep reading the latest s6.service log
+journalctl --dmesg                          #only show kernel message
 ```
 List the direct dependencies of the named package.
 ```sh

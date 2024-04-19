@@ -1,2 +1,3 @@
 #Type Name   ID  GECOS                        Home directory  Shell
 u     www	 -   "user for tipidee"			  /home/www       /sbin/nologin
+u     wwwlog -   "user for tipidee log"		  /home/www       /sbin/nologin
