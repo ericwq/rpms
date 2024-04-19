@@ -35,9 +35,10 @@ docker run --env TZ=Asia/Shanghai --tty --privileged --volume /sys/fs/cgroup:/sy
     rpm-builder:0.2.0
 ```
 
-login the container as packager.
+login the container as packager or root.
 ```sh
 docker exec -u packager -it rpm-builder bash
+docker exec -u root -it rpm-builder bash
 ```
 
 ## build rpm packages

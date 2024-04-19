@@ -62,7 +62,7 @@ This package contains example configuration for %{name}.
 
 configuration: %{_s6_service_dir}
 document root: %{_doc_root}
-tipidee log  : /home/www
+tipidee log  : /var/log/
 %prep
 %autosetup
 
@@ -82,8 +82,9 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
-# fix v2 bug for run script
+# fix v2 bug and example.com bug for run script
 sed -i "s|v2|v|" "examples/s6/httpd-4/run"
+sed -i "s|example.com|localhost|" "examples/s6/httpd-4/run"
 
 # prepare files for example
 mkdir -p %{buildroot}%{_s6_service_dir}
@@ -95,20 +96,23 @@ cp "examples/tipidee.conf" "%{buildroot}%{_s6_service_dir}"
 
 # prepare files for tipidee document root
 mkdir -p "%{buildroot}%{_doc_root}/%{_domain_name}"
+mkdir -p "%{buildroot}%{_doc_root}/localhost"
 cd "%{buildroot}%{_doc_root}"
 ln -s "%{_domain_name}" "%{_domain_name}:80"
 ln -s "%{_domain_name}" "%{_domain_name}:443"
-cp %{SOURCE2} .
+ln -s "localhost" "localhost:80"
+ln -s "localhost" "localhost:443"
+cp %{SOURCE2} "./%{_domain_name}/"
+cp %{SOURCE2} "./localhost/"
 
 # create symlink for tipidee s6 service
 mkdir -p "%{buildroot}%{_sharedstatedir}/s6/service"
 cd "%{buildroot}%{_sharedstatedir}/s6/service"
 ln -s "../%{name}/httpd-4" "%{name}-httpd-4"
-ls -al "%{buildroot}%{_sharedstatedir}/s6/service"
 
 %pre s6-example
 %sysusers_create_compat %{SOURCE1}
-# fix log directory bug for log.run script
+# fix /var/log bug for log/run script
 mkdir -p  /var/log/httpd-4
 chown -R wwwlog:wwwlog /var/log/httpd-4
 
@@ -134,10 +138,10 @@ tipidee-config -i "%{_s6_service_dir}/tipidee.conf"
 
 %files s6-example
 %{_sysusersdir}/%{name}.conf
-%{_s6_service_dir}/
-%{_doc_root}/
+%attr(-, www, www) %{_s6_service_dir}/
+%attr(-, www, www) %{_doc_root}/
 %{_sharedstatedir}/s6/service/%{name}*
 
 %changelog
-* Mon Apr 15 2024 Wang Qi <ericwq057@qq.com> - v0.1
+* Fri Apr 23 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged

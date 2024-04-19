@@ -60,6 +60,10 @@ sudo journalctl -u s6.service               #only show s6.service log
 sudo journalctl -f -u s6.service            #keep reading the latest s6.service log
 journalctl --dmesg                          #only show kernel message
 ```
+check tipidee server
+```sh
+curl http://localhost/index.html
+```
 List the direct dependencies of the named package.
 ```sh
 dnf repoquery --requires <package name>
