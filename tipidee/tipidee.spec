@@ -24,8 +24,10 @@ Source2:  index.html
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 Requires: skalibs >= 2.14.1.1
-Recommends: s6-networking >= 2.7.0.2
+REquires: s6-networking >= 2.7.0.2
 BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
+BuildRequires: gcc pkgconfig
+BuildRequires: make >= 3.81
 
 %description
 tipidee is a web server. It supports HTTP 1.0 and 1.1. It aims to be
