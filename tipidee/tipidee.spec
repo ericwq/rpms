@@ -7,7 +7,6 @@
 %define debug_package %{nil}
 %define _build_id_links none
 %define _s6_service_dir %{_sharedstatedir}/s6/tipidee
-%define _domain_name example.com
 %define _doc_root /home/www
 
 Name:	  tipidee
@@ -62,7 +61,7 @@ This package contains example configuration for %{name}.
 
 configuration: %{_s6_service_dir}
 document root: %{_doc_root}
-tipidee log  : /var/log/
+tipidee log  : /var/log/httpd-{4,6}
 %prep
 %autosetup
 
@@ -82,39 +81,39 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
-# fix v2 bug and example.com bug for run script
+# fix v2 bug bug for run script
 sed -i "s|v2|v|" "examples/s6/httpd-4/run"
+sed -i "s|v2|v|" "examples/s6/httpd-6/run"
+# change example.com to localhost
 sed -i "s|example.com|localhost|" "examples/s6/httpd-4/run"
+sed -i "s|example.com|localhost|" "examples/s6/httpd-6/run"
 
 # prepare files for example
 mkdir -p %{buildroot}%{_s6_service_dir}
 cp -r "examples/s6/httpd-4" "%{buildroot}%{_s6_service_dir}"
 cp -r "examples/s6/httpd-6" "%{buildroot}%{_s6_service_dir}"
-cp -r "examples/s6/httpsd-4" "%{buildroot}%{_s6_service_dir}"
-cp -r "examples/s6/httpsd-6" "%{buildroot}%{_s6_service_dir}"
 cp "examples/tipidee.conf" "%{buildroot}%{_s6_service_dir}"
 
 # prepare files for tipidee document root
-mkdir -p "%{buildroot}%{_doc_root}/%{_domain_name}"
 mkdir -p "%{buildroot}%{_doc_root}/localhost"
 cd "%{buildroot}%{_doc_root}"
-ln -s "%{_domain_name}" "%{_domain_name}:80"
-ln -s "%{_domain_name}" "%{_domain_name}:443"
 ln -s "localhost" "localhost:80"
 ln -s "localhost" "localhost:443"
-cp %{SOURCE2} "./%{_domain_name}/"
 cp %{SOURCE2} "./localhost/"
 
 # create symlink for tipidee s6 service
 mkdir -p "%{buildroot}%{_sharedstatedir}/s6/service"
 cd "%{buildroot}%{_sharedstatedir}/s6/service"
 ln -s "../%{name}/httpd-4" "%{name}-httpd-4"
+ln -s "../%{name}/httpd-6" "%{name}-httpd-6"
 
 %pre s6-example
 %sysusers_create_compat %{SOURCE1}
-# fix /var/log bug for log/run script
+# create log directory for tipidee
 mkdir -p  /var/log/httpd-4
 chown -R wwwlog:wwwlog /var/log/httpd-4
+mkdir -p  /var/log/httpd-6
+chown -R wwwlog:wwwlog /var/log/httpd-6
 
 %post s6-example
 # :> /etc/tipidee.conf && tipidee-config
