@@ -7,7 +7,7 @@ LABEL maintainer="ericwq057@qq.com"
 
 RUN dnf -y install gcc rpm-build rpm-devel rpmlint make python bash coreutils diffutils patch rpmdevtools \
 	sudo dnf-plugins-core tree git wget which ripgrep fzf pkgconfig \
-	mock mock-scm createrepo_c \
+	mock mock-scm createrepo_c rpm-sign \
 	&& dnf clean all
 
 # add user/group

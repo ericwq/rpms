@@ -52,6 +52,9 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [s6-rc](s6-rc/readme.md)👌
 - [tipidee](tipidee/readme.md)🏗
 
+## hosting rpm packages and yum repo
+follow the instructions in [this document](sign.md) to prepare yum repo. Note you need to setup tipidee (web server) to serve yum repo for dnf client.
+
 ## license
 [ISC](https://en.wikipedia.org/wiki/ISC_license)
 
