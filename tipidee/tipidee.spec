@@ -54,7 +54,7 @@ Summary:  Document for %{name}
 This package contains document for %{name}.
 
 %package  s6-example
-Summary:  example %{name} configured as s6 service for http(s) and ivp(4|6).
+Summary:  example %{name} configured as s6 service for http and ipv4/ipv6
 Requires: %{name} = %{version}
 BuildRequires: systemd-rpm-macros
 %{?sysusers_requires_compat}
@@ -66,6 +66,13 @@ document root: %{_doc_root}
 tipidee log  : /var/log/httpd-{4,6}
 %prep
 %autosetup
+
+# fix v2 bug bug for run script
+sed -i "s|v2|v|" "examples/s6/httpd-4/run"
+sed -i "s|v2|v|" "examples/s6/httpd-6/run"
+# change example.com to localhost
+sed -i "s|example.com|localhost|" "examples/s6/httpd-4/run"
+sed -i "s|example.com|localhost|" "examples/s6/httpd-6/run"
 
 %build
 ./configure --enable-shared --enable-static --disable-allstatic \
@@ -83,14 +90,7 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}%{_docdir}
 mv "doc/" "%{buildroot}%{_docdir}/%{name}/"
 
-# fix v2 bug bug for run script
-sed -i "s|v2|v|" "examples/s6/httpd-4/run"
-sed -i "s|v2|v|" "examples/s6/httpd-6/run"
-# change example.com to localhost
-sed -i "s|example.com|localhost|" "examples/s6/httpd-4/run"
-sed -i "s|example.com|localhost|" "examples/s6/httpd-6/run"
-
-# prepare files for example
+# prepare files for tipidee configure
 mkdir -p %{buildroot}%{_s6_service_dir}
 cp -r "examples/s6/httpd-4" "%{buildroot}%{_s6_service_dir}"
 cp -r "examples/s6/httpd-6" "%{buildroot}%{_s6_service_dir}"
@@ -144,5 +144,5 @@ tipidee-config -i "%{_s6_service_dir}/tipidee.conf"
 %{_sharedstatedir}/s6/service/%{name}*
 
 %changelog
-* Fri Apr 23 2024 Wang Qi <ericwq057@qq.com> - v0.1
+* Mon Apr 22 2024 Wang Qi <ericwq057@qq.com> - v0.1
 - First version being packaged

@@ -26,6 +26,7 @@ rpm -qi <rpm file>
 rpm -ql <rpm file>
 rpm -qpR <rpm file>
 rpm -qp --provides <rpm file>
+rpm -qpivl --changelog  <rpm file>
 ```
 install and remove rpm
 ```sh
