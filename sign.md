@@ -100,3 +100,6 @@ dnf config-manager --add-repo http://localhost/skarnet.repo
 - [Creating and hosting your own deb packages and apt repo](https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/)
 - [create local dnf repos](https://blog.cykerway.com/posts/2020/06/09/create-local-dnf-repos.html)
 - [Guide to Establishing and Hosting a Remote Yum Repository on GitHub](https://medium.com/debugging-diaries/guide-to-establishing-and-hosting-a-remote-yum-repository-on-github-b8326b60ac68)
+- [HowTo Setup a Local YUM/DNF RPM Repository](https://github.com/taw00/howto/blob/master/howto-setup-a-local-yum-dnf-repository.md)
+- [How to sign your custom RPM package with GPG key - chinese](https://gist.github.com/Rtoax/2fc39c6699e75185c25b53e0960425d7)
+- [How to sign your custom RPM package with GPG key](https://gist.github.com/fernandoaleman/1376720)
