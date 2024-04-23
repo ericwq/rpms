@@ -1,6 +1,6 @@
 # rpms
 
-This project contains rpm spec and instructions to build rpm packages for Fedora, Centos, Redhat. Now it contains rpm spec for: [skalibs](https://skarnet.org/software/skalibs), [execline](https://skarnet.org/software/execline), [s6](https://skarnet.org/software/s6/), [s6-dns](https://skarnet.org/software/s6-dns/)
+This project contains rpm spec and instructions to build rpm packages for Fedora, Centos, Redhat. Now it contains rpm spec for: [skalibs](https://skarnet.org/software/skalibs), [execline](https://skarnet.org/software/execline), [s6](https://skarnet.org/software/s6/), [s6-dns](https://skarnet.org/software/s6-dns/), [s6-networking](https://skarnet.org/software/s6-networking/), [s6-rc](https://skarnet.org/software/s6-rc/), [tipidee](https://skarnet.org/software/tipidee/).
 
 With the help of fedora linux container, you can reproduce the rpm building process as you follow the instruction. The container is created according to [RPM Packaging Guide](https://rpm-packaging-guide.github.io/#introduction).
 
@@ -50,10 +50,10 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [s6-dns](s6-dns/readme.md)👌
 - [s6-networking](s6-networking/readme.md)👌
 - [s6-rc](s6-rc/readme.md)👌
-- [tipidee](tipidee/readme.md)🏗
+- [tipidee](tipidee/readme.md)👌
 
-## hosting rpm packages and yum repo
-follow the instructions in [this document](sign.md) to build yum repo. Note you need to setup tipidee (web server) to serve yum repo for dnf client.
+## hosting rpm packages via yum/dnf repo
+follow the instructions in [this document](sign.md) to build yum repo. Note I setup tipidee (web server) to serve yum/dnf repo for dnf client. working on hosting yum/dnf repository on github. 🏗
 
 import public key to rpm DB.
 ```sh

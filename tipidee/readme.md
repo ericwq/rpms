@@ -19,6 +19,7 @@ spectool -g -R ~/rpmbuild/SPECS/tipidee.spec   #download the source
 rpmbuild -bc ~/rpmbuild/SPECS/tipidee.spec     #just compile
 rpmbuild -bs ~/rpmbuild/SPECS/tipidee.spec     #build source RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/tipidee.spec     #build RPMS
+rpmbuild -ba --sign <spec file>                #sign package during build
 ```
 check package information, contents, dependencies for rpm.
 ```sh

@@ -25,12 +25,7 @@ verify the list of gpg public keys in RPM DB
 rpm -q gpg-pubkey
 rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
 ```
-let’s export the private key so we can back it up somewhere safe.
-```sh
-gpg --armor --export-secret-keys "Wang Qi" > ~/pgp-key.private
-```
-
-## sign rpm packages
+## sign rpm packages with PGP key
 prepare rpmmacros:
 ```sh
 echo "%_signature gpg
@@ -50,7 +45,7 @@ rpm --checksig <rpm file>
 rpm -v --checksig <rpm file>
 ```
 
-## creating a yum repository
+## creating a yum/dnf repository
 Once all the packages are signed, we will use createrepo to create the repository:
 ```sh
 cd ~/repo/
@@ -61,7 +56,7 @@ Finally, we will sign the repodata metadata by running:
 gpg --detach-sign --armor ./repodata/repomd.xml
 ```
 
-## testing the repository
+## test the repository
 We will create a config for this server:
 ```sh
 echo "[skarnet-repo]
@@ -81,6 +76,16 @@ sudo chown www:www /home/www/localhost/repo/skarnet.repo
 setup dnf to use this new repository:
 ```sh
 sudo dnf config-manager --add-repo http://localhost/repo/skarnet.repo
+```
+
+## back up and restore private key
+let’s export the private key so we can back it up somewhere safe.
+```sh
+gpg --armor --export-secret-keys "Wang Qi" > ~/pgp-key.private
+```
+import the private key, so we can restore it from backup.
+```sh
+gpg --import ~/pgp-key.private
 ```
 
 ## delete PGP key pair
