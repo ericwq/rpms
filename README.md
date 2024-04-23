@@ -53,11 +53,12 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [tipidee](tipidee/readme.md)👌
 
 ## hosting rpm packages via yum/dnf repo
-follow the instructions in [this document](sign.md) to build yum repo. Note I setup tipidee (web server) to serve yum/dnf repo for dnf client. working on hosting yum/dnf repository on github. 🏗
+follow the instructions in [this document](sign.md) to build yum repo. Note I setup tipidee (web server) to serve yum/dnf repo for dnf. working on hosting yum/dnf repository on github. 🏗
 
-import public key to rpm DB.
+import public key to rpm DB, check dnf repo list.
 ```sh
 rpm --import http://localhost/repo/RPM-GPG-KEY-wangqi
+dnf repolist
 ```
 setup dnf to add the new repo. run one of the following command.
 ```sh
