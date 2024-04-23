@@ -1,0 +1,6 @@
+[skarnet-repo]
+name=Skarnet.org Repo
+baseurl=https://ericwq.github.io/rpms/repo
+enabled=1
+gpgcheck=1
+gpgkey=https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi
