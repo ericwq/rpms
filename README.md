@@ -55,8 +55,13 @@ Next, follow the instructions for individual project. Note, you must follow the 
 ## hosting rpm packages and yum repo
 follow the instructions in [this document](sign.md) to build yum repo. Note you need to setup tipidee (web server) to serve yum repo for dnf client.
 
+import public key to rpm DB.
 ```sh
 rpm --import http://localhost/repo/RPM-GPG-KEY-wangqi
+```
+setup dnf to add the new repo. run one of the following command.
+```sh
+sudo dnf config-manager --add-repo http://localhost/repo/skarnet.repo
 curl -s http://localhost/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
 
 ```

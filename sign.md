@@ -75,6 +75,8 @@ start tipidee web server, refer to [this instruction to install tipidee](tipidee
 ```sh
 sudo cp -r ~/repo/ /home/www/localhost/repo
 sudo chown -R www:www /home/www/localhost/repo
+sudo cp skarnet.repo  /home/www/localhost/repo
+sudo chown www:www /home/www/localhost/repo/skarnet.repo
 ```
 setup dnf to use this new repository:
 ```sh
