@@ -1,63 +1,59 @@
-## Creating a New Public/Private PGP Key Pair
-First create a batch template by running the following command.
+## creating a new PGP key pair
+check exist keys.
 ```sh
-mkdir -p ~/signed-rpm && echo "%echo Generating PGP key for rpm pacakges
-Key-Type: RSA
-Key-Length: 4096
-Name-Real: Wang Qi
-Name-Email: ericwq057@qq.com
-Expire-Date: 0
-%no-ask-passphrase
-%no-protection
-%commit" > ~/signed-rpm/pgp-key.batch
+gpg --list-keys
 ```
-then generate it.
+create keys using the interactive prompt:
 ```sh
-export GNUPGHOME="$(mktemp -d ~/signed-rpm/pgpkeys-XXXXXX)" && \
-gpg --no-tty --batch --gen-key ~/signed-rpm/pgp-key.batch
+gpg --full-generate-key
+mkdir -p ~/repo
 ```
-We can also view all of our loaded keys with:
+view all of our loaded keys with:
 ```sh
 gpg --list-keys
 ```
 exporting the public key.
 ```sh
-gpg --armor --export "Wang Qi" > ~/signed-rpm/pgp-key.public
+gpg --armor --export "Wang Qi" > ~/repo/RPM-GPG-KEY-wangqi
 ```
-verify only a single key was exported by running:
+import your public key to your RPM DB
 ```sh
-cat ~/signed-rpm/pgp-key.public | gpg --list-packets
+sudo rpm --import ~/repo/RPM-GPG-KEY-wangqi
+```
+verify the list of gpg public keys in RPM DB
+```sh
+rpm -q gpg-pubkey
+rpm -q gpg-pubkey --qf '%{name}-%{version}-%{release} --> %{summary}\n'
 ```
 let’s export the private key so we can back it up somewhere safe.
 ```sh
-gpg --armor --export-secret-keys "Wang Qi" > ~/signed-rpm/pgp-key.private
+gpg --armor --export-secret-keys "Wang Qi" > ~/pgp-key.private
 ```
-## Creating a yum Repository
-import our private key, so we have access to it for signing the repo:
-```sh
-gpg --import ~/signed-rpm/pgp-key.private
-```
-configure the rpm tools to use this key for signing our packages and repository:
-Don’t forget to replace E1933532750E9EEF with your key’s ID.
+
+## sign rpm packages
+prepare rpmmacros:
 ```sh
 echo "%_signature gpg
-%_gpg_name 7FCD29065EDF808E" > ~/.rpmmacros
+%_gpg_name Wang Qi" > ~/.rpmmacros
 ```
-Let’s create a directory for our packages:
+then copy our rpm(s) into this directory:
 ```sh
-mkdir -p ~/signed-rpm/packages/
+cp ~/rpmbuild/RPMS/x86_64/*.rpm ~/repo
 ```
-Then copy our rpm(s) into this directory:
+we can add a signature to rpm packages by running:
 ```sh
-cp ~/rpmbuild/RPMS/x86_64/*.rpm ~/signed-rpm/packages/
+rpm --addsign ~/repo/*.rpm
 ```
-We can add a signature to rpm packages by running:
+check the signature to make sure it was signed:
 ```sh
-rpm --addsign ~/signed-rpm/packages/*.rpm
+rpm --checksig <rpm file>
+rpm -v --checksig <rpm file>
 ```
+
+## creating a yum repository
 Once all the packages are signed, we will use createrepo to create the repository:
 ```sh
-cd ~/signed-rpm/packages/
+cd ~/repo/
 createrepo .
 ```
 Finally, we will sign the repodata metadata by running:
@@ -65,36 +61,33 @@ Finally, we will sign the repodata metadata by running:
 gpg --detach-sign --armor ./repodata/repomd.xml
 ```
 
-## Testing the Repository
-Note: we assume that rpm repo is served by tipidee.
-
-copy public key to tipidee
-```sh
-sudo cp ~/signed-rpm/pgp-key.public /home/www/localhost/pgp-key.public
-```
-create a url for pacakges
-```sh
-sudo cp -r ~/signed-rpm/packages /home/www/localhost/packages
-```
+## testing the repository
 We will create a config for this server:
 ```sh
-cd ~/signed-rpm/
 echo "[skarnet-repo]
 name=Skarnet.org Repo
-baseurl=http://localhost/packages/
+baseurl=http://localhost/repo/
 enabled=1
 gpgcheck=1
-gpgkey=http://localhost/pgp-key.public" > ~/signed-rpm/skarnet.repo
+gpgkey=http://localhost/repo/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
 ```
-copy skarnet.repo to tipidee
+start tipidee web server, refer to [this instruction to install tipidee](tipidee/readme.md). copy repo to tipidee
 ```sh
-sudo cp ~/signed-rpm/skarnet.repo /home/www/localhost/
+sudo cp -r ~/repo/ /home/www/localhost/repo
+sudo chown -R www:www /home/www/localhost/repo
 ```
-configure our machine to use this new repository:
+setup dnf to use this new repository:
 ```sh
-dnf config-manager --add-repo http://localhost/skarnet.repo
+sudo dnf config-manager --add-repo http://localhost/repo/skarnet.repo
 ```
-## Refer
+
+## delete PGP key pair
+delete private key and public key.
+```sh
+gpg --delete-secret-keys "Wang Qi"
+gpg --delete-keys "Wang Qi"
+```
+## Reference
 
 - [Creating a New Public/Private PGP Key Pair](https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/)
 - [Creating and hosting your own deb packages and apt repo](https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/)

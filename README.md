@@ -53,8 +53,13 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [tipidee](tipidee/readme.md)🏗
 
 ## hosting rpm packages and yum repo
-follow the instructions in [this document](sign.md) to prepare yum repo. Note you need to setup tipidee (web server) to serve yum repo for dnf client.
+follow the instructions in [this document](sign.md) to build yum repo. Note you need to setup tipidee (web server) to serve yum repo for dnf client.
 
+```sh
+rpm --import http://localhost/repo/RPM-GPG-KEY-wangqi
+curl -s http://localhost/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
+
+```
 ## license
 [ISC](https://en.wikipedia.org/wiki/ISC_license)
 
