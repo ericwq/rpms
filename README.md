@@ -6,7 +6,7 @@ dnf repolist
 ```
 add the new repo to dnf.
 ```sh
-curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
+curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/skarnet.repo
 
 ```
 enjoy the rpms
@@ -76,7 +76,7 @@ dnf repolist
 add the new repo to dnf. run one of the following command.
 ```sh
 sudo dnf config-manager --add-repo https://ericwq.github.io/rpms/repo/skarnet.repo
-curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
+curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/skarnet.repo
 
 ```
 ## license
