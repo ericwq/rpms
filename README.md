@@ -1,3 +1,16 @@
+# for rpm user
+import public key to rpm DB, check dnf repo list.
+```sh
+rpm --import https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi
+dnf repolist
+```
+add the new repo to dnf.
+```sh
+curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
+
+```
+enjoy the rpms
+
 # rpms
 
 This project contains rpm spec and instructions to build rpm packages for Fedora, Centos, Redhat. Now it contains rpm spec for: [skalibs](https://skarnet.org/software/skalibs), [execline](https://skarnet.org/software/execline), [s6](https://skarnet.org/software/s6/), [s6-dns](https://skarnet.org/software/s6-dns/), [s6-networking](https://skarnet.org/software/s6-networking/), [s6-rc](https://skarnet.org/software/s6-rc/), [tipidee](https://skarnet.org/software/tipidee/).
@@ -57,13 +70,13 @@ follow the instructions in [this document](sign.md) to build yum repo. Note I se
 
 import public key to rpm DB, check dnf repo list.
 ```sh
-rpm --import http://localhost/repo/RPM-GPG-KEY-wangqi
+rpm --import https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi
 dnf repolist
 ```
-setup dnf to add the new repo. run one of the following command.
+add the new repo to dnf. run one of the following command.
 ```sh
-sudo dnf config-manager --add-repo http://localhost/repo/skarnet.repo
-curl -s http://localhost/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
+sudo dnf config-manager --add-repo https://ericwq.github.io/rpms/repo/skarnet.repo
+curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/go-repo.repo
 
 ```
 ## license
