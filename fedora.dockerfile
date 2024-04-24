@@ -24,4 +24,5 @@ RUN echo 'packager ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/packager
 
 # https://developer.fedoraproject.org/deployment/rpm/about.html
 
+EXPOSE 80
 ENTRYPOINT ["/sbin/init"]

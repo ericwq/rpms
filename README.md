@@ -33,8 +33,8 @@ Build the container first. Note: only one of the `docker build` is needed. The m
 ```sh
 git clone https://github.com/ericwq/rpms.git
 cd rpms
-docker build -t rpm-builder:0.2.0 -f fedora.dockerfile .
-docker build --no-cache --progress plain -t rpm-builder:0.2.0 -f fedora.dockerfile .
+docker build -t rpm-builder:0.2.1 -f fedora.dockerfile .
+docker build --no-cache --progress plain -t rpm-builder:0.2.1 -f fedora.dockerfile .
 ```
 ## run the container
 Run the container as packager user. Note: here I mount the local directory:`/Users/qiwang/dev` to the container's directory `/home/packager/develop`. This container also setup the timezone to shanghai,PRC. You can change it to mount your local directory and timezone.
@@ -44,8 +44,8 @@ start the container as daemon.
 docker run --env TZ=Asia/Shanghai --tty --privileged --volume /sys/fs/cgroup:/sys/fs/cgroup:rw \
     --mount source=proj-vol,target=/home/packager/proj \
     --mount type=bind,source=/Users/qiwang/dev,target=/home/packager/develop \
-    -h rpm-builder --name rpm-builder -d \
-    rpm-builder:0.2.0
+    -h rpm-builder --name rpm-builder -d -p 80:80 \
+    rpm-builder:0.2.1
 ```
 
 login the container as packager or root.
