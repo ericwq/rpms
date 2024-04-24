@@ -21,7 +21,8 @@ Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 Requires: skalibs >= 2.14.1.1
 BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
-BuildRequires: gcc make >= 3.81
+BuildRequires: gcc pkgconfig
+BuildRequires: make >= 3.81
 
 %description
 execline is a (non-interactive) scripting language, like sh - but its
