@@ -21,12 +21,11 @@ Source0:  https://skarnet.org/software/%{name}/%{name}-%{version}.tar.gz
 Source1:  s6.service
 Source2:  s6.svscan-boot
 Source3:  s6.preset
-Requires: execline >= 2.9.4.0
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
-Requires: skalibs >= 2.14.1.1
-Requires: execline >= 2.9.5.0
-BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
+#Requires: skalibs >= 2.14.1.1
+#Requires: execline >= 2.9.5.0
+BuildRequires: skalibs-devel >= 2.14.1.1
 BuildRequires: execline-devel >= 2.9.5.0
 BuildRequires: systemd-rpm-macros
 BuildRequires: gcc make >= 3.81

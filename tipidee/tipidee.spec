@@ -24,7 +24,7 @@ Source2:  index.html
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 Requires: skalibs >= 2.14.1.1
-REquires: s6-networking >= 2.7.0.2
+Requires: s6-networking >= 2.7.0.2
 BuildRequires: pkgconfig(skalibs) >= 2.14.1.1
 BuildRequires: gcc pkgconfig
 BuildRequires: make >= 3.81
