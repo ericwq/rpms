@@ -1,15 +1,19 @@
-# for rpm user
-import public key to rpm DB, check dnf repo list.
+# for rpm pacakge user
+currently, the repo is served by github pages. first you need to import public key to rpm DB.
 ```sh
 rpm --import https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi
+```
+then add the new repo to dnf. you can check dnf repo list before and after.
+```sh
+dnf repolist
+curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/skarnet.repo
 dnf repolist
 ```
-add the new repo to dnf.
+or you can use the following command to add new repo.
 ```sh
-curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/skarnet.repo
-
+dnf config-manager --add-repo http://ericwq.github.io/rpms/repo/skarnet.repo
 ```
-enjoy the rpms
+enjoy the skarnet rpms!
 
 # rpms
 
@@ -66,7 +70,7 @@ Next, follow the instructions for individual project. Note, you must follow the 
 - [tipidee](tipidee/readme.md)👌
 
 ## hosting rpm packages via yum/dnf repo
-follow the instructions in [this document](sign.md) to build yum repo. Note I setup tipidee (web server) to serve yum/dnf repo for dnf. working on hosting yum/dnf repository on github. 🏗
+follow the instructions in [this document](sign.md) to build yum repo. Note I setup tipidee (web server) to serve yum/dnf repo for dnf.
 
 import public key to rpm DB, check dnf repo list.
 ```sh

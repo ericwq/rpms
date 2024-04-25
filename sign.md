@@ -93,11 +93,12 @@ create config for github page
 ```sh
 echo "[skarnet-repo]
 name=Skarnet.org Repo
-baseurl=http://localhost:8000/
+baseurl=https://ericwq.github.io/rpms/repo
 enabled=1
 gpgcheck=1
-gpgkey=http://localhost:8000/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
+gpgkey=https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
 ```
+copy repo directory to rpms/repo.
 ## back up and restore private key
 let’s export the private key so we can back it up somewhere safe.
 ```sh
