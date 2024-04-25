@@ -16,6 +16,7 @@ spectool -g -R ~/rpmbuild/SPECS/execline.spec   #download the source
 rpmbuild -bc ~/rpmbuild/SPECS/execline.spec     #just compile
 rpmbuild -bs ~/rpmbuild/SPECS/execline.spec     #build source RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/execline.spec     #build RPMS
+rpmbuild -ba ~/rpmbuild/SPECS/execline.spec     #build RPMS and source RPMS
 ```
 check package information, contents, dependencies for rpm.
 ```sh

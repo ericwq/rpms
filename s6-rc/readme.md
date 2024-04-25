@@ -18,6 +18,7 @@ spectool -g -R ~/rpmbuild/SPECS/s6-rc.spec   #download the source
 rpmbuild -bc ~/rpmbuild/SPECS/s6-rc.spec     #just compile
 rpmbuild -bs ~/rpmbuild/SPECS/s6-rc.spec     #build source RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/s6-rc.spec     #build RPMS
+rpmbuild -ba ~/rpmbuild/SPECS/s6-rc.spec     #build all
 ```
 check package information, contents, dependencies for rpm.
 ```sh

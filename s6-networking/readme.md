@@ -18,6 +18,7 @@ spectool -g -R ~/rpmbuild/SPECS/s6-networking.spec   #download the source
 rpmbuild -bp ~/rpmbuild/SPECS/s6-networking.spec     #just prepre
 rpmbuild -bc ~/rpmbuild/SPECS/s6-networking.spec     #just compile
 rpmbuild -bb ~/rpmbuild/SPECS/s6-networking.spec     #build RPMS
+rpmbuild -ba ~/rpmbuild/SPECS/s6-networking.spec     #build all
 ```
 check package information, contents, dependencies, provides for rpm.
 ```sh

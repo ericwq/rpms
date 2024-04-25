@@ -17,6 +17,7 @@ spectool -g -R ~/rpmbuild/SPECS/skalibs.spec    #download the source
 rpmbuild -bp ~/rpmbuild/SPECS/skalibs.spec      #build through %prep 
 rpmbuild -bs ~/rpmbuild/SPECS/skalibs.spec      #build the sourece RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/skalibs.spec      #build the RPMS
+rpmbuild -ba ~/rpmbuild/SPECS/skalibs.spec      #build all
 ```
 check package information, contents, dependencies for rpm.
 ```sh

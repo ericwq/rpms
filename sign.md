@@ -6,7 +6,6 @@ gpg --list-keys
 create keys using the interactive prompt:
 ```sh
 gpg --full-generate-key
-mkdir -p ~/repo
 ```
 view all of our loaded keys with:
 ```sh
@@ -33,11 +32,14 @@ echo "%_signature gpg
 ```
 then copy our rpm(s) into this directory:
 ```sh
+mkdir -p ~/repo/SRPMS
 cp ~/rpmbuild/RPMS/x86_64/*.rpm ~/repo
+cp ~/rpmbuild/SRPMS/*.rpm ~/repo/SRPMS
 ```
 we can add a signature to rpm packages by running:
 ```sh
 rpm --addsign ~/repo/*.rpm
+rpm --addsign ~/repo/SRPMS/*.rpm
 ```
 check the signature to make sure it was signed:
 ```sh
@@ -57,14 +59,18 @@ gpg --detach-sign --armor ./repodata/repomd.xml
 ```
 
 ## test the repository
+create a web server to serve the contents of our repository:
+```sh
+python3 -m http.server
+```
 We will create a config for this server:
 ```sh
 echo "[skarnet-repo]
 name=Skarnet.org Repo
-baseurl=http://localhost/repo/
+baseurl=http://localhost:8000/
 enabled=1
 gpgcheck=1
-gpgkey=http://localhost/repo/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
+gpgkey=http://localhost:8000/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
 ```
 start tipidee web server, refer to [this instruction to install tipidee](tipidee/readme.md). copy repo to tipidee
 ```sh
@@ -75,9 +81,23 @@ sudo chown www:www /home/www/localhost/repo/skarnet.repo
 ```
 setup dnf to use this new repository:
 ```sh
-sudo dnf config-manager --add-repo http://localhost/repo/skarnet.repo
+sudo dnf clean metadata
+sudo dnf config-manager --add-repo http://localhost:8000/skarnet.repo
 ```
-
+## publish to github pages
+copy public key to repo
+```sh
+cp ~/develop/RPM-GPG-KEY-wangqi ~/repo/
+```
+create config for github page
+```sh
+echo "[skarnet-repo]
+name=Skarnet.org Repo
+baseurl=http://localhost:8000/
+enabled=1
+gpgcheck=1
+gpgkey=http://localhost:8000/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
+```
 ## back up and restore private key
 let’s export the private key so we can back it up somewhere safe.
 ```sh
@@ -96,6 +116,7 @@ gpg --delete-keys "Wang Qi"
 ```
 ## Reference
 
+- [Creating and hosting your own rpm packages and yum repo](https://earthly.dev/blog/creating-and-hosting-your-own-rpm-packages-and-yum-repo/)
 - [Creating a New Public/Private PGP Key Pair](https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/)
 - [Creating and hosting your own deb packages and apt repo](https://earthly.dev/blog/creating-and-hosting-your-own-deb-packages-and-apt-repo/)
 - [create local dnf repos](https://blog.cykerway.com/posts/2020/06/09/create-local-dnf-repos.html)

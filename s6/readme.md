@@ -20,6 +20,7 @@ rpmbuild -bc ~/rpmbuild/SPECS/s6.spec   #just compile
 rpmbuild -bp ~/rpmbuild/SPECS/s6.spec   #build through %prep
 rpmbuild -bs ~/rpmbuild/SPECS/s6.spec   #build source RPMS
 rpmbuild -bb ~/rpmbuild/SPECS/s6.spec   #build RPMS
+rpmbuild -ba ~/rpmbuild/SPECS/s6.spec   #build RPMS and source RPMS
 ```
 check package information, contents, dependencies for rpm.
 ```sh
