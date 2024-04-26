@@ -32,14 +32,14 @@ echo "%_signature gpg
 ```
 then copy our rpm(s) into this directory:
 ```sh
-mkdir -p ~/repo/SRPMS
-cp ~/rpmbuild/RPMS/x86_64/*.rpm ~/repo
-cp ~/rpmbuild/SRPMS/*.rpm ~/repo/SRPMS
+mkdir -p ~/repo/
+cp -r ~/rpmbuild/SRPMS/ ~/repo/
+cp -r ~/rpmbuild/RPMS/ ~/repo/
 ```
 we can add a signature to rpm packages by running:
 ```sh
-rpm --addsign ~/repo/*.rpm
 rpm --addsign ~/repo/SRPMS/*.rpm
+rpm --addsign ~/repo/RPMS/x86_64/*.rpm
 ```
 check the signature to make sure it was signed:
 ```sh
