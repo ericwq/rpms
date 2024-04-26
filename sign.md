@@ -81,7 +81,8 @@ sudo chown www:www /home/www/localhost/repo/skarnet.repo
 ```
 setup dnf to use this new repository:
 ```sh
-sudo dnf clean metadata
+sudo dnf clean metadata         #clean repo metadata
+sudo dnf clean packages         #clean local cache
 sudo dnf config-manager --add-repo http://localhost:8000/skarnet.repo
 ```
 ## publish to github pages
@@ -98,7 +99,13 @@ enabled=1
 gpgcheck=1
 gpgkey=https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi" > ~/repo/skarnet.repo
 ```
-copy repo directory to rpms/repo.
+clear previous rpms/repo, copy new repo content to rpms/repo.
+```sh
+cd ~/repo/
+cp -r RPMS/ ~/develop/rpms/repo/
+cp -r SRPMS/ ~/develop/rpms/repo/
+cp -r repodata/ ~/develop/rpms/repo/
+```
 ## back up and restore private key
 let’s export the private key so we can back it up somewhere safe.
 ```sh
