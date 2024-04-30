@@ -1,17 +1,20 @@
+**Note: this project has been moved to [codeberg.org](https://codeberg.org/ericwq/rpms)**.
+
 # for rpm pacakge user
+
 currently, the repo is served by github pages. first you need to import public key to rpm DB.
 ```sh
-rpm --import https://ericwq.github.io/rpms/repo/RPM-GPG-KEY-wangqi
+rpm --import https://ericwq.codeberg.page/skarnet/RPM-GPG-KEY-wangqi
 ```
 then add the new repo to dnf. you can check dnf repo list before and after.
 ```sh
 dnf repolist
-curl -s https://ericwq.github.io/rpms/repo/skarnet.repo | tee /etc/yum.repos.d/skarnet.repo
+curl -s https://ericwq.codeberg.page/skarnet/skarnet.repo | tee /etc/yum.repos.d/skarnet.repo
 dnf repolist
 ```
 or you can use the following command to add new repo.
 ```sh
-dnf config-manager --add-repo http://ericwq.github.io/rpms/repo/skarnet.repo
+dnf config-manager --add-repo https://ericwq.codeberg.page/skarnet/skarnet.repo
 ```
 enjoy the skarnet rpms!
 
